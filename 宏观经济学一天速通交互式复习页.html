@@ -1,0 +1,4190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>宏观经济学一天速通交互式复习页</title>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #dbeafe;
+      --text: #111827;
+      --muted: #6b7280;
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --danger: #dc2626;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    body.dark {
+      --primary: #60a5fa;
+      --primary-light: #1e3a8a;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --bg: #0f172a;
+      --card: #111827;
+      --border: #334155;
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+    }
+
+    header {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #fff;
+      padding: 56px 20px 48px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 48px);
+      letter-spacing: -1px;
+    }
+
+    header p {
+      max-width: 760px;
+      margin: 16px auto 0;
+      opacity: 0.94;
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    button,
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 16px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    button:hover,
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    .btn-light {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+    }
+
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    body.dark .sticky-nav {
+      background: rgba(15, 23, 42, 0.92);
+    }
+
+    .sticky-nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+    }
+
+    .sticky-nav a {
+      white-space: nowrap;
+      text-decoration: none;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    main {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 26px 20px 60px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 26px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 26px;
+      color: var(--text);
+    }
+
+    h3 {
+      margin: 20px 0 10px;
+      font-size: 19px;
+    }
+
+    p {
+      margin: 8px 0 14px;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @media (max-width: 900px) {
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, var(--card), rgba(37, 99, 235, 0.06));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .stat-number {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .progress-wrap {
+      width: 100%;
+      height: 12px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 10px 0 4px;
+    }
+
+    body.dark .progress-wrap {
+      background: #334155;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #16a34a, #86efac);
+      transition: width 0.25s ease;
+    }
+
+    .flow {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-top: 16px;
+    }
+
+    .model-tab {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      transition: 0.2s ease;
+    }
+
+    .model-tab:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .model-tab.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .model-panel {
+      display: none;
+    }
+
+    .model-panel.active {
+      display: block;
+    }
+
+    .flow-step {
+      min-width: 150px;
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+      position: relative;
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -13px;
+      top: 42%;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .flow-step strong {
+      display: block;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .chart-card,
+    .filter-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .formula {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: 14px;
+      padding: 12px;
+      font-weight: 800;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 90px 1fr 60px;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    .bar-track {
+      height: 14px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+    }
+
+    body.dark .bar-track {
+      background: #334155;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2563eb, #60a5fa);
+    }
+
+    .model-svg {
+      width: 100%;
+      max-width: 420px;
+      display: block;
+      margin: 0 auto;
+      background: #f8fafc;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    body.dark .model-svg {
+      background: #1e293b;
+    }
+
+    .model-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 14px 0;
+    }
+
+    .model-actions button {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    .policy-grid {
+      display: grid;
+      grid-template-columns: 1.1fr repeat(4, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+
+    .policy-grid div {
+      padding: 12px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+      font-size: 14px;
+    }
+
+    .policy-grid div:nth-child(5n) {
+      border-right: none;
+    }
+
+    .policy-head {
+      background: var(--primary-light) !important;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .up {
+      color: #dc2626;
+      font-weight: 800;
+    }
+
+    .down {
+      color: #2563eb;
+      font-weight: 800;
+    }
+
+    .same {
+      color: #6b7280;
+      font-weight: 800;
+    }
+
+    .warning,
+    .success,
+    .info {
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-top: 14px;
+    }
+
+    .warning {
+      background: #fffbeb;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+
+    .success {
+      background: #ecfdf5;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .info {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    body.dark .warning {
+      background: rgba(245, 158, 11, 0.12);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    body.dark .success {
+      background: rgba(22, 163, 74, 0.12);
+      color: #86efac;
+      border-color: rgba(22, 163, 74, 0.35);
+    }
+
+    body.dark .info {
+      background: rgba(37, 99, 235, 0.15);
+      color: #93c5fd;
+      border-color: rgba(37, 99, 235, 0.35);
+    }
+
+    .accordion {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--card);
+    }
+
+    .accordion-item + .accordion-item {
+      border-top: 1px solid var(--border);
+    }
+
+    .accordion-btn {
+      width: 100%;
+      border: 0;
+      background: var(--card);
+      color: var(--text);
+      padding: 16px 18px;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      border-radius: 0;
+    }
+
+    .accordion-btn:hover {
+      transform: none;
+      filter: none;
+      background: rgba(37, 99, 235, 0.06);
+    }
+
+    .accordion-content {
+      display: none;
+      padding: 0 18px 16px;
+      color: var(--muted);
+    }
+
+    .accordion-item.active .accordion-content {
+      display: block;
+    }
+
+    .filter-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 12px 0 18px;
+    }
+
+    .filter-actions button {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 8px 13px;
+    }
+
+    .filter-actions button.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .chapter-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .chapter-item {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      background: var(--card);
+    }
+
+    .chapter-item strong {
+      color: var(--primary);
+    }
+
+    .tag {
+      display: inline-block;
+      margin: 4px 4px 0 0;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .quiz-box {
+      border: 1px dashed var(--primary);
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(37, 99, 235, 0.06);
+      margin-top: 14px;
+    }
+
+    .quiz-question {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .checklist label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: var(--card);
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      margin-top: 6px;
+      transform: scale(1.15);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 30px 20px 50px;
+    }
+
+    @media (max-width: 720px) {
+      header {
+        padding: 42px 16px 36px;
+      }
+
+      main {
+        padding: 20px 14px 44px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .policy-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .policy-grid div {
+        border-right: none;
+      }
+
+      .policy-head {
+        display: none;
+      }
+    }
+
+    /* ===== 题库样式 ===== */
+    .qb-mode-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .qb-mode-tab {
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .qb-mode-tab:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .qb-mode-tab.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .qb-stats {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .qb-stat {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .qb-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 14px;
+    }
+
+    .qb-question-type {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .qb-type-choice { background: #dbeafe; color: #1d4ed8; }
+    .qb-type-tf { background: #fef3c7; color: #92400e; }
+    .qb-type-short { background: #d1fae5; color: #166534; }
+
+    body.dark .qb-type-choice { background: #1e3a8a; color: #93c5fd; }
+    body.dark .qb-type-tf { background: #78350f; color: #fcd34d; }
+    body.dark .qb-type-short { background: #064e3b; color: #6ee7b7; }
+
+    .qb-question-text {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .qb-options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .qb-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
+      cursor: pointer;
+      transition: 0.18s ease;
+      font-size: 15px;
+    }
+
+    .qb-option:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .qb-option.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .qb-option.correct {
+      border-color: var(--success);
+      background: #ecfdf5;
+    }
+
+    .qb-option.wrong {
+      border-color: var(--danger);
+      background: #fef2f2;
+    }
+
+    body.dark .qb-option.correct { background: rgba(22,163,74,0.18); }
+    body.dark .qb-option.wrong { background: rgba(220,38,38,0.18); }
+
+    .qb-option-marker {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .qb-option.selected .qb-option-marker {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .qb-option.correct .qb-option-marker {
+      background: var(--success);
+      border-color: var(--success);
+      color: #fff;
+    }
+
+    .qb-option.wrong .qb-option-marker {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: #fff;
+    }
+
+    .qb-tf-btns {
+      display: flex;
+      gap: 14px;
+    }
+
+    .qb-tf-btn {
+      flex: 1;
+      max-width: 140px;
+      padding: 14px 20px;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      background: var(--card);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .qb-tf-btn:hover { border-color: var(--primary); }
+    .qb-tf-btn.selected-true { border-color: var(--success); background: #ecfdf5; }
+    .qb-tf-btn.selected-false { border-color: var(--danger); background: #fef2f2; }
+    body.dark .qb-tf-btn.selected-true { background: rgba(22,163,74,0.18); }
+    body.dark .qb-tf-btn.selected-false { background: rgba(220,38,38,0.18); }
+
+    .qb-feedback {
+      padding: 14px;
+      border-radius: 14px;
+      margin-top: 14px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .qb-feedback.correct { background: #ecfdf5; color: #166534; border: 1px solid #bbf7d0; }
+    .qb-feedback.wrong { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+    body.dark .qb-feedback.correct { background: rgba(22,163,74,0.15); color: #86efac; }
+    body.dark .qb-feedback.wrong { background: rgba(220,38,38,0.15); color: #fca5a5; }
+
+    .qb-navigation {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .qb-nav-btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .qb-nav-btn.primary { background: var(--primary); color: #fff; }
+    .qb-nav-btn.secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+    .qb-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .qb-progress-mini {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .qb-answer-reveal {
+      background: var(--primary-light);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--primary);
+    }
+
+    .qb-summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .qb-summary { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .qb-summary-card {
+      text-align: center;
+      padding: 16px;
+      border-radius: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+    }
+
+    .qb-summary-num {
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .qb-summary-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .concept-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .concept-card h3 {
+      margin: 0 0 10px;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 8px;
+    }
+
+    .concept-tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--primary-light);
+      color: var(--primary);
+      margin: 4px 4px 0 0;
+    }
+
+    .key-point {
+      background: #fffbeb;
+      border-left: 3px solid #f59e0b;
+      padding: 10px 14px;
+      border-radius: 0 12px 12px 0;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    body.dark .key-point {
+      background: rgba(245,158,11,0.12);
+      border-left-color: #f59e0b;
+    }
+
+    .jump-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      border: 1.5px solid var(--primary);
+      border-radius: 999px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    .jump-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+    }
+
+    .jump-btn-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border: 1px solid var(--primary);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+
+    .jump-btn-inline:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* ===== 新手友好增强样式 ===== */
+    .beginner-guide {
+      background: linear-gradient(135deg, #ecfdf5, #eff6ff);
+      border: 2px solid #86efac;
+      border-radius: 22px;
+      padding: 26px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    body.dark .beginner-guide {
+      background: linear-gradient(135deg, rgba(22,163,74,0.08), rgba(37,99,235,0.08));
+      border-color: rgba(22,163,74,0.4);
+    }
+    .beginner-guide::before {
+      content: "🌱";
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 80px;
+      opacity: 0.08;
+    }
+    .beginner-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .badge-easy {
+      background: #d1fae5;
+      color: #166534;
+    }
+    .badge-medium {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .badge-hard {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    body.dark .badge-easy { background: #064e3b; color: #6ee7b7; }
+    body.dark .badge-medium { background: #78350f; color: #fcd34d; }
+    body.dark .badge-hard { background: #7f1d1d; color: #fca5a5; }
+
+    .learning-path {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .path-step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      position: relative;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .path-step:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37,99,235,0.12);
+    }
+    .path-step .step-num {
+      display: inline-flex;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .path-step .step-title {
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--text);
+    }
+    .path-step .step-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .mnemonic-box {
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border: 1px solid #fde68a;
+      border-radius: 16px;
+      padding: 16px;
+      margin: 14px 0;
+    }
+    body.dark .mnemonic-box {
+      background: rgba(245,158,11,0.08);
+      border-color: rgba(245,158,11,0.3);
+    }
+    .mnemonic-box h4 {
+      margin: 0 0 10px;
+      color: #92400e;
+      font-size: 15px;
+    }
+    body.dark .mnemonic-box h4 { color: #fbbf24; }
+    .mnemonic-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin: 8px 0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .mnemonic-item .emoji {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .tooltip-term {
+      border-bottom: 1.5px dashed var(--primary);
+      cursor: help;
+      position: relative;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .tooltip-term:hover::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 400;
+      white-space: normal;
+      width: max-content;
+      max-width: 280px;
+      line-height: 1.5;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      pointer-events: none;
+    }
+
+    .plain-explain {
+      background: #f0fdf4;
+      border-left: 3px solid #16a34a;
+      padding: 10px 14px;
+      border-radius: 0 12px 12px 0;
+      margin: 10px 0;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    body.dark .plain-explain {
+      background: rgba(22,163,74,0.08);
+      border-left-color: #16a34a;
+    }
+
+    .common-mistake {
+      background: #fef2f2;
+      border-left: 3px solid #dc2626;
+      padding: 10px 14px;
+      border-radius: 0 12px 12px 0;
+      margin: 10px 0;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    body.dark .common-mistake {
+      background: rgba(220,38,38,0.08);
+      border-left-color: #dc2626;
+    }
+
+    .formula-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .formula-card h4 {
+      margin: 0 0 8px;
+      color: var(--primary);
+      font-size: 15px;
+    }
+    .formula-card .formula-main {
+      font-family: 'Cambria Math', 'Times New Roman', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 10px 14px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 8px 0;
+    }
+    .formula-card .formula-explain {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .quiz-hint-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      border: 1.5px solid #f59e0b;
+      border-radius: 999px;
+      background: #fffbeb;
+      color: #92400e;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+      margin-top: 10px;
+    }
+    .quiz-hint-btn:hover {
+      background: #f59e0b;
+      color: #fff;
+    }
+    body.dark .quiz-hint-btn {
+      background: rgba(245,158,11,0.1);
+      border-color: #f59e0b;
+      color: #fbbf24;
+    }
+    body.dark .quiz-hint-btn:hover {
+      background: #f59e0b;
+      color: #000;
+    }
+    .quiz-hint-content {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #92400e;
+    }
+    body.dark .quiz-hint-content {
+      background: rgba(245,158,11,0.08);
+      border-color: rgba(245,158,11,0.3);
+      color: #fbbf24;
+    }
+
+    .real-example {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    body.dark .real-example {
+      background: rgba(37,99,235,0.08);
+      border-color: rgba(37,99,235,0.25);
+    }
+
+    .difficulty-stars {
+      display: inline-flex;
+      gap: 2px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .difficulty-stars .star {
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+    }
+    .difficulty-stars .star.filled {
+      color: #f59e0b;
+    }
+    .difficulty-stars .star.empty {
+      color: #d1d5db;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+      }
+
+      header,
+      .sticky-nav,
+      .hero-actions,
+      .model-actions,
+      .filter-actions,
+      button,
+      footer,
+      .beginner-guide,
+      .quiz-hint-btn {
+        display: none !important;
+      }
+
+      .card {
+        box-shadow: none;
+        break-inside: avoid;
+        border: 1px solid #ddd;
+      }
+
+      .accordion-content {
+        display: block !important;
+      }
+
+      main {
+        max-width: none;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>宏观经济学一天速通</h1>
+    <p>
+      零基础也能用！用交互式复习工具，把第9章到第16章串成"指标—模型—问题—政策—增长"的应试框架。<br>
+      <span style="font-size:15px;opacity:0.9;">🌱 新手请先点击下方"零基础入口"，从学习路线开始 →</span>
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn-light btn" href="#beginner">🌱 零基础入口</a>
+      <button class="btn-light" id="darkModeBtn">切换夜间模式</button>
+      <button class="btn-light" onclick="window.print()">打印 A4 速记版</button>
+      <a class="btn-light btn" href="#check">开始自测</a>
+    </div>
+  </header>
+
+  <nav class="sticky-nav">
+    <div class="sticky-nav-inner">
+      <a href="#beginner" style="background:#d1fae5;color:#166534;">🌱 新手入口</a>
+      <a href="#dashboard">复习仪表盘</a>
+      <a href="#logic">全书逻辑</a>
+      <a href="#models">三大模型</a>
+      <a href="#formulas">公式速查</a>
+      <a href="#policy">政策对比</a>
+      <a href="#filter">章节筛选</a>
+      <a href="#concepts">概念精讲</a>
+      <a href="#quiz">题库系统</a>
+      <a href="#check">考前自测</a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ===================== 新手引导区 ===================== -->
+    <section class="beginner-guide" id="beginner">
+      <h2 style="margin-top:0;">🌱 零基础？从这里开始！</h2>
+      <p style="font-size:15px;line-height:1.8;">
+        宏观经济学听起来很高大上，其实核心就一句话：<b>研究一个国家整体经济是怎么运行的</b>——物价为什么涨？工作为什么难找？政府印钱会怎样？
+        下面的<b>4步学习路线</b>帮你用最少时间搭好框架。
+      </p>
+
+      <div class="learning-path">
+        <a class="path-step" href="#logic" style="text-decoration:none;color:inherit;">
+          <div class="step-num">1</div>
+          <div class="step-title">看大图</div>
+          <div class="step-desc">先看"全书逻辑"，了解宏观经济学讲了哪几件事，建立整体印象。<span class="beginner-badge badge-easy">零基础可看</span></div>
+        </a>
+        <a class="path-step" href="#models" style="text-decoration:none;color:inherit;">
+          <div class="step-num">2</div>
+          <div class="step-title">抓核心模型</div>
+          <div class="step-desc">重点掌握三大模型（收入-支出、IS-LM、AD-AS），考试70%的题和它们有关。<span class="beginner-badge badge-medium">需要理解</span></div>
+        </a>
+        <a class="path-step" href="#formulas" style="text-decoration:none;color:inherit;">
+          <div class="step-num">3</div>
+          <div class="step-title">背关键公式</div>
+          <div class="step-desc">记住6个高频公式，计算题基本就稳了。每个公式都配了白话解释。<span class="beginner-badge badge-easy">零基础可看</span></div>
+        </a>
+        <a class="path-step" href="#quiz" style="text-decoration:none;color:inherit;">
+          <div class="step-num">4</div>
+          <div class="step-title">刷题检验</div>
+          <div class="step-desc">用题库系统检查自己，错了也不怕——每题都有提示和详细解释。<span class="beginner-badge badge-easy">零基础可看</span></div>
+        </a>
+      </div>
+
+      <div class="mnemonic-box">
+        <h4>💡 速记口诀——记住这个框架，考试不慌</h4>
+        <div class="mnemonic-item"><span class="emoji">📊</span><span><b>"衡量→决定→均衡→波动→政策"</b>：先衡量经济（GDP/CPI），再看收入怎么决定，然后看两个市场怎么均衡，接着看经济为什么波动，最后看政府怎么救。</span></div>
+        <div class="mnemonic-item"><span class="emoji">🧮</span><span><b>"Y=CIG"</b>：GDP = 消费 + 投资 + 政府支出 + 净出口，这是宏观经济学的"万能钥匙"。</span></div>
+        <div class="mnemonic-item"><span class="emoji">📈</span><span><b>"IS管产品，LM管货币，AD加AS管物价"</b>：三个模型各管一件事，不要混。</span></div>
+        <div class="mnemonic-item"><span class="emoji">💰</span><span><b>"财政管收支，货币管利率"</b>：政府花钱/收税=财政政策；央行印钱/加息=货币政策。</span></div>
+      </div>
+
+      <div class="info">
+        <strong>看不懂术语？</strong>
+        页面中带有<u style="cursor:help;">虚线下划线</u>的<b style="color:var(--primary);">蓝色文字</b>，鼠标悬停会弹出通俗解释。概念精讲区每个概念都有"白话版"解释和生活类比。
+      </div>
+    </section>
+    <section class="card" id="dashboard">
+      <h2>复习仪表盘</h2>
+      <p class="small">
+        目标：用 1 天时间抓住宏观经济学主线，优先掌握模型、图形、公式和政策分析。
+      </p>
+
+      <div class="dashboard">
+        <div class="stat-card">
+          <div class="stat-number">8章</div>
+          <div class="stat-label">第9章到第16章，按"指标—模型—问题—政策—增长"复习</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-number">3个</div>
+          <div class="stat-label">核心模型：收入-支出、IS-LM、AD-AS</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-number">5类</div>
+          <div class="stat-label">高频题型：名词解释、计算、画图、简答、论述</div>
+        </div>
+      </div>
+
+      <h3>今日完成度</h3>
+      <div class="progress-wrap">
+        <div class="progress-bar" id="studyProgress"></div>
+      </div>
+      <p class="small">
+        勾选页面底部的自测清单后，这里会自动显示完成进度。
+      </p>
+
+      <div class="info">
+        <strong>建议顺序：</strong>
+        先背三大模型，再看政策矩阵，最后用随机抽题检查是否能闭卷表达。
+      </div>
+    </section>
+
+    <section class="card" id="logic">
+      <h2>全书逻辑流程图</h2>
+      <p>
+        宏观经济学不是零散概念，而是一条连续主线：先衡量经济，再解释波动，最后讨论政策和增长。
+      </p>
+
+      <div class="flow">
+        <div class="flow-step">
+          <strong>第9章</strong>
+          宏观指标<br />
+          GDP、CPI、失业率
+        </div>
+
+        <div class="flow-step">
+          <strong>第10章</strong>
+          收入决定<br />
+          总需求、乘数
+        </div>
+
+        <div class="flow-step">
+          <strong>第11章</strong>
+          IS-LM<br />
+          利率与收入
+        </div>
+
+        <div class="flow-step">
+          <strong>第12章</strong>
+          AD-AS<br />
+          产出与价格
+        </div>
+
+        <div class="flow-step">
+          <strong>第13章</strong>
+          宏观问题<br />
+          失业、通胀、周期
+        </div>
+
+        <div class="flow-step">
+          <strong>第14-16章</strong>
+          政策与增长<br />
+          开放经济、调控、长期增长
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="models">
+      <h2>三大模型图表化理解</h2>
+      <p>
+        一天复习时，最重要的是会判断"哪个模型解决哪个问题"。下面用图形把三大模型的区别讲清楚。
+      </p>
+
+      <div class="grid grid-3">
+        <div class="chart-card">
+          <h3>1. 收入-支出模型</h3>
+          <p class="small">核心：总需求决定均衡收入。</p>
+
+          <div class="bar-row">
+            <span>消费 C</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 60%"></div></div>
+            <span>60%</span>
+          </div>
+
+          <div class="bar-row">
+            <span>投资 I</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 20%"></div></div>
+            <span>20%</span>
+          </div>
+
+          <div class="bar-row">
+            <span>政府 G</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 18%"></div></div>
+            <span>18%</span>
+          </div>
+
+          <div class="formula">
+            Y = C + I + G + NX
+          </div>
+
+          <p class="small">
+            记忆：需求增加 → 均衡收入增加 → 通过乘数放大。
+          </p>
+        </div>
+
+        <div class="chart-card">
+          <h3>2. IS-LM 模型</h3>
+          <p class="small">核心：产品市场和货币市场共同决定收入与利率。</p>
+
+          <div class="model-actions">
+            <button data-islm="base">基础状态</button>
+            <button data-islm="fiscal">扩张财政</button>
+            <button data-islm="money">扩张货币</button>
+          </div>
+
+          <svg class="model-svg" viewBox="0 0 320 240">
+            <line x1="45" y1="200" x2="280" y2="200" stroke="#334155" stroke-width="2" />
+            <line x1="45" y1="200" x2="45" y2="30" stroke="#334155" stroke-width="2" />
+            <text x="282" y="205" font-size="13" fill="#334155">Y</text>
+            <text x="30" y="28" font-size="13" fill="#334155">r</text>
+
+            <line id="isLine" x1="70" y1="60" x2="250" y2="180" stroke="#2563eb" stroke-width="3" />
+            <text id="isText" x="235" y="170" fill="#2563eb" font-size="14">IS</text>
+
+            <line id="lmLine" x1="75" y1="180" x2="250" y2="55" stroke="#dc2626" stroke-width="3" />
+            <text id="lmText" x="235" y="68" fill="#dc2626" font-size="14">LM</text>
+
+            <circle id="islmPoint" cx="162" cy="122" r="5" fill="#111827" />
+            <text id="islmPointText" x="170" y="120" font-size="13" fill="#111827">E</text>
+          </svg>
+
+          <p class="small" id="islmExplain">
+            基础状态：IS 与 LM 的交点决定均衡收入 Y 与利率 r。
+          </p>
+        </div>
+
+        <div class="chart-card">
+          <h3>3. AD-AS 模型</h3>
+          <p class="small">核心：总需求和总供给共同决定产出与价格。</p>
+
+          <div class="model-actions">
+            <button data-adas="base">基础状态</button>
+            <button data-adas="demand">需求扩张</button>
+            <button data-adas="supply">负向供给冲击</button>
+          </div>
+
+          <svg class="model-svg" viewBox="0 0 320 240">
+            <line x1="45" y1="200" x2="280" y2="200" stroke="#334155" stroke-width="2" />
+            <line x1="45" y1="200" x2="45" y2="30" stroke="#334155" stroke-width="2" />
+            <text x="282" y="205" font-size="13" fill="#334155">Y</text>
+            <text x="30" y="28" font-size="13" fill="#334155">P</text>
+
+            <line id="adLine" x1="75" y1="60" x2="250" y2="180" stroke="#2563eb" stroke-width="3" />
+            <text id="adText" x="230" y="174" fill="#2563eb" font-size="14">AD</text>
+
+            <line id="asLine" x1="80" y1="180" x2="245" y2="55" stroke="#dc2626" stroke-width="3" />
+            <text id="asText" x="230" y="66" fill="#dc2626" font-size="14">SRAS</text>
+
+            <line x1="175" y1="45" x2="175" y2="200" stroke="#16a34a" stroke-width="3" stroke-dasharray="6 5" />
+            <text x="182" y="50" fill="#16a34a" font-size="14">LRAS</text>
+
+            <circle id="adasPoint" cx="162" cy="122" r="5" fill="#111827" />
+            <text id="adasPointText" x="170" y="120" font-size="13" fill="#111827">E</text>
+          </svg>
+
+          <p class="small" id="adasExplain">
+            基础状态：AD 与 SRAS 的交点决定短期均衡产出 Y 与价格水平 P。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 公式速查区 ===================== -->
+    <section class="card" id="formulas">
+      <h2>📋 核心公式速查（6个必须记住）<span class="beginner-badge badge-easy">零基础可看</span></h2>
+      <p class="small">每个公式都配了白话解释和记忆技巧。不需要死记硬背，理解含义后自然记得住。</p>
+
+      <div class="grid grid-2" style="margin-top:16px;">
+        <div class="formula-card">
+          <h4>① GDP 支出法 <span class="beginner-badge badge-easy">最基础</span></h4>
+          <div class="formula-main">Y = C + I + G + NX</div>
+          <div class="formula-explain">
+            <b>白话：</b>一个国家一年生产的东西，要么被老百姓买了（C消费），要么被企业买了（I投资），要么被政府买了（G政府支出），要么卖给外国人（NX净出口）。<br>
+            <b>记忆：</b>谐音"吃（C）一（I）个（G）馕（NX）"。<br>
+            <b>考试：</b>这是宏观经济学的"万能公式"，几乎每个模型都从它出发。
+          </div>
+        </div>
+
+        <div class="formula-card">
+          <h4>② 投资乘数 <span class="beginner-badge badge-medium">高频计算</span></h4>
+          <div class="formula-main">k = 1 / (1 − MPC)</div>
+          <div class="formula-explain">
+            <b>白话：</b>MPC是"每多赚1块钱，你愿意花多少"。如果MPC=0.8（花8毛存2毛），乘数k=5，意思是投资增加100元，最终总收入增加500元。<br>
+            <b>为什么？</b>你花80元→别人赚80元→别人花64元→又有人赚64元……像滚雪球一样。<br>
+            <b>常见错：</b>MPC越大，乘数<b>越大</b>（不是越小！）。MPC=0.9时乘数高达10。
+          </div>
+        </div>
+
+        <div class="formula-card">
+          <h4>③ GDP平减指数 <span class="beginner-badge badge-easy">概念题</span></h4>
+          <div class="formula-main">GDP平减指数 = (名义GDP / 实际GDP) × 100</div>
+          <div class="formula-explain">
+            <b>白话：</b>名义GDP是"按今年价格算的"，实际GDP是"按去年价格算的"。两者一比就知道今年物价涨了多少。<br>
+            <b>例子：</b>今年生产了同样多的东西，名义GDP=110万，去年价格算只有100万，那平减指数=110，说明物价涨了10%。
+          </div>
+        </div>
+
+        <div class="formula-card">
+          <h4>④ 货币需求函数 <span class="beginner-badge badge-medium">IS-LM核心</span></h4>
+          <div class="formula-main">L = kY − hr</div>
+          <div class="formula-explain">
+            <b>白话：</b>人们想持有多少钱？收入越高需要越多钱（kY），利率越高需要越少钱（−hr，因为利率高不如去买债券）。<br>
+            <b>记法：</b>"收入多了想花钱，利率高了想存钱"。
+          </div>
+        </div>
+
+        <div class="formula-card">
+          <h4>⑤ 菲利普斯曲线 <span class="beginner-badge badge-hard">需要理解</span></h4>
+          <div class="formula-main">π = πᵉ − β(u − uₙ)</div>
+          <div class="formula-explain">
+            <b>白话：</b>通胀率π取决于：预期通胀πᵉ、以及失业率u离自然失业率uₙ有多远。<br>
+            <b>通俗：</b>失业低于自然率→经济过热→工资涨→物价涨（通胀高）。反之亦然。<br>
+            <b>考试：</b>短期：失业和通胀此消彼长。长期：失业回自然率，通胀取决于预期。
+          </div>
+        </div>
+
+        <div class="formula-card">
+          <h4>⑥ 索洛稳态条件 <span class="beginner-badge badge-hard">经济增长</span></h4>
+          <div class="formula-main">s·f(k*) = (δ + n + g)k*</div>
+          <div class="formula-explain">
+            <b>白话：</b>每个人存的钱（s·f(k)）刚好够用来补折旧(δ)、分给新工人(n)和技术进步(g)。<br>
+            <b>通俗：</b>像水池——进水（储蓄投资）= 出水（折旧+人口增长+技术进步）时，水位稳定。<br>
+            <b>核心结论：</b>提高储蓄率能提高收入<b>水平</b>，但不能提高长期<b>增长率</b>。长期增长只靠技术进步！
+          </div>
+        </div>
+      </div>
+
+      <div class="plain-explain">
+        <strong>💡 公式怎么记？</strong> 不要一个字母一个字母地背！先理解公式在说什么（上面的白话解释），再记住关键数字关系（比如MPC=0.8→乘数=5）。考试时先写公式再代入数字，步骤分不会丢。
+      </div>
+    </section>
+
+    <section class="card" id="policy">
+      <h2>财政政策与货币政策效果对比</h2>
+      <p>
+        政策分析题可以直接按"政策类型 → 曲线移动 → 变量变化 → 局限性"作答。
+      </p>
+
+      <div class="policy-grid">
+        <div class="policy-head">政策</div>
+        <div class="policy-head">曲线</div>
+        <div class="policy-head">产出 Y</div>
+        <div class="policy-head">利率 r</div>
+        <div class="policy-head">价格 P</div>
+
+        <div>扩张性财政政策</div>
+        <div>IS右移 / AD右移</div>
+        <div class="up">上升</div>
+        <div class="up">上升</div>
+        <div class="up">上升</div>
+
+        <div>紧缩性财政政策</div>
+        <div>IS左移 / AD左移</div>
+        <div class="down">下降</div>
+        <div class="down">下降</div>
+        <div class="down">下降</div>
+
+        <div>扩张性货币政策</div>
+        <div>LM右移 / AD右移</div>
+        <div class="up">上升</div>
+        <div class="down">下降</div>
+        <div class="up">上升</div>
+
+        <div>紧缩性货币政策</div>
+        <div>LM左移 / AD左移</div>
+        <div class="down">下降</div>
+        <div class="up">上升</div>
+        <div class="down">下降</div>
+      </div>
+
+      <div class="warning">
+        <strong>注意：</strong>
+        以上是一般短期分析结论。考试中如果出现"流动性陷阱、挤出效应、固定汇率、浮动汇率"等条件，需要补充说明。
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>高频概念速查</h2>
+
+      <div class="accordion">
+        <div class="accordion-item active">
+          <button class="accordion-btn">GDP 为什么不能完全衡量福利？</button>
+          <div class="accordion-content">
+            GDP 衡量的是一定时期内最终产品和服务的市场价值，但它不反映收入分配、闲暇、环境质量、地下经济和非市场活动，因此不能完全等同于社会福利。
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">什么是挤出效应？</button>
+          <div class="accordion-content">
+            扩张性财政政策增加政府支出，可能推高利率，导致私人投资减少，这种私人投资被政府支出"挤出"的现象称为挤出效应。
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">什么是流动性陷阱？</button>
+          <div class="accordion-content">
+            当利率已经很低时，人们愿意持有货币而不愿购买债券，货币需求对利率极其敏感，此时增加货币供给可能难以继续降低利率，货币政策效果减弱。
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">什么是滞胀？</button>
+          <div class="accordion-content">
+            滞胀是经济停滞、高失业与通货膨胀同时存在的状态，通常可由负向供给冲击解释，例如生产成本上升导致 SRAS 左移。
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">自然失业率和周期性失业有什么区别？</button>
+          <div class="accordion-content">
+            自然失业率包括摩擦性失业和结构性失业，是经济正常运行中仍会存在的失业；周期性失业则与经济衰退和总需求不足有关。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 核心概念精讲区 ===================== -->
+    <section class="card" id="concepts">
+      <h2>核心概念精讲（不翻书搞定全章）</h2>
+      <p class="small">
+        按章节顺序逐层展开，每一块都包含定义、公式、图示和应试要点。折叠展开即可快速查阅。
+      </p>
+
+      <div class="accordion">
+        <!-- 第9章 -->
+        <div class="accordion-item" id="concept-ch9">
+          <button class="accordion-btn">第9章：宏观经济指标 —— GDP / CPI / 失业率 <span class="beginner-badge badge-easy">零基础可看</span></button>
+          <div class="accordion-content">
+            <div class="plain-explain">
+              <strong>🗺️ 这章讲什么？</strong> 就像体检要量身高体重血压一样，衡量一个国家的经济"健不健康"也需要指标。这章介绍三个最重要的"体检指标"：<span class="tooltip-term" data-tip="国内生产总值，一个国家一年内生产的所有最终产品和服务的价值总和">GDP</span>（经济总量）、<span class="tooltip-term" data-tip="消费者价格指数，衡量老百姓日常买的东西价格涨了多少">CPI</span>（物价水平）、<span class="tooltip-term" data-tip="没有工作但在找工作的人占劳动力的比例">失业率</span>（就业状况）。
+            </div>
+
+            <div class="concept-card">
+              <h3>GDP（国内生产总值）</h3>
+              <p><strong>定义：</strong>一定时期内一国境内生产的所有最终产品和服务的市场价值总和。</p>
+              <div class="plain-explain">
+                <strong>白话版：</strong>GDP就是一个国家一年"赚了多少钱"。注意是"生产了多少"而不是"消费了多少"。比如你买了一台5000元的电脑，这5000元就贡献给了当年的GDP。<br>
+                <strong>关键限制：</strong>GDP只算"最终产品"（卖给消费者的），不算"中间产品"（面粉→面包，只算面包的价格）。重复计算就乱了。
+              </div>
+              <p><strong>三种核算方法：</strong></p>
+              <ul>
+                <li><strong>支出法：</strong>GDP = C（消费）+ I（投资）+ G（政府购买）+ NX（净出口）</li>
+                <li><strong>收入法：</strong>GDP = 工资 + 利息 + 租金 + 利润 + 折旧 + 间接税</li>
+                <li><strong>生产法：</strong>各行业增加值之和</li>
+              </ul>
+              <div class="formula">GDP = C + I + G + NX</div>
+              <div class="common-mistake">
+                <strong>⚠️ 常见误区：</strong><br>
+                ① GDP≠GNP！GDP按"境内"算，GNP按"国籍"算。中国企业在海外的产值算在中国GNP里，但不算在中国GDP里。<br>
+                ② GDP不含二手交易（房子转手不算）、不含非法活动、不含家务劳动。<br>
+                ③ GDP高≠人民幸福！它不反映贫富差距、环境污染、闲暇时间。
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <h3>名义GDP vs 实际GDP</h3>
+              <p><strong>名义GDP：</strong>按当年价格计算。<br><strong>实际GDP：</strong>按基年价格计算，剔除价格变动。</p>
+              <div class="formula">GDP平减指数 = (名义GDP / 实际GDP) × 100</div>
+              <div class="plain-explain">
+                <strong>通俗理解：</strong>假如一个国家去年生产了100个面包，今年还是100个，但面包从10元涨到11元。名义GDP从1000变成1100（看起来增长了10%），但实际GDP还是1000（实际产量没变）。GDP平减指数=110，说明物价涨了10%。
+              </div>
+              <div class="key-point"><strong>应试要点：</strong>计算"经济增长率"时用实际GDP，而非名义GDP。平减指数衡量的是<b>全部</b>商品价格变化。</div>
+            </div>
+
+            <div class="concept-card">
+              <h3>CPI vs GDP平减指数</h3>
+              <table style="width:100%;border-collapse:collapse;font-size:14px;margin-top:8px;">
+                <tr style="background:var(--primary-light);"><th style="padding:8px;text-align:left;">对比维度</th><th style="padding:8px;text-align:left;">CPI</th><th style="padding:8px;text-align:left;">GDP平减指数</th></tr>
+                <tr><td style="padding:8px;border-bottom:1px solid var(--border);">商品范围</td><td style="padding:8px;border-bottom:1px solid var(--border);">一篮子消费品</td><td style="padding:8px;border-bottom:1px solid var(--border);">所有国内产品</td></tr>
+                <tr><td style="padding:8px;border-bottom:1px solid var(--border);">进口品</td><td style="padding:8px;border-bottom:1px solid var(--border);">包含</td><td style="padding:8px;border-bottom:1px solid var(--border);">不包含</td></tr>
+                <tr><td style="padding:8px;border-bottom:1px solid var(--border);">权重</td><td style="padding:8px;border-bottom:1px solid var(--border);">固定权重</td><td style="padding:8px;border-bottom:1px solid var(--border);">可变权重</td></tr>
+              </table>
+              <div class="plain-explain">
+                <strong>记忆技巧：</strong>CPI是"老百姓视角"——只看消费品，进口也算（因为你要买进口手机）；GDP平减指数是"国家视角"——只看国内生产的东西。
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <h3>失业率与奥肯定律</h3>
+              <p><strong>自然失业率：</strong>摩擦性失业 + 结构性失业（经济正常运转时的最低失业率）。</p>
+              <p><strong>周期性失业：</strong>经济衰退导致的总需求不足引起的失业。</p>
+              <div class="plain-explain">
+                <strong>三种失业一句话版：</strong><br>
+                • <b>摩擦性</b>：辞职后在找新工作（正常换工作的间隙期）<br>
+                • <b>结构性</b>：你的技能被淘汰了（比如打字员被电脑取代）<br>
+                • <b>周期性</b>：经济不好公司裁员（经济衰退导致）
+              </div>
+              <div class="key-point"><strong>奥肯定律：</strong>实际GDP每低于潜在GDP 2%，失业率上升约1个百分点。即：Δ失业率 ≈ −0.5 × (实际GDP增长率 − 潜在GDP增长率)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第10章 -->
+        <div class="accordion-item" id="concept-ch10">
+          <button class="accordion-btn">第10章：收入-支出模型 —— 消费函数 / 乘数效应 <span class="beginner-badge badge-medium">需要理解</span></button>
+          <div class="accordion-content">
+            <div class="plain-explain">
+              <strong>🗺️ 这章讲什么？</strong> 回答一个核心问题：<b>一个国家的总收入是怎么决定的？</b> 答案是：由总需求（大家愿意花多少钱）决定的。花得越多，生产越多，赚得越多——但有个"乘数放大器"效果。
+            </div>
+
+            <div class="concept-card">
+              <h3>消费函数与储蓄函数</h3>
+              <p><strong>凯恩斯消费函数：</strong>C = a + b·Y<sub>d</sub>（a:自主消费, b:边际消费倾向MPC）</p>
+              <p><strong>MPC：</strong>每增加1单位可支配收入，消费增加多少（0 < MPC < 1）</p>
+              <p><strong>MPS：</strong>边际储蓄倾向 = 1 − MPC</p>
+              <div class="formula">C = a + MPC × Y<sub>d</sub>　　S = −a + (1−MPC) × Y<sub>d</sub></div>
+              <div class="plain-explain">
+                <strong>白话版：</strong>C = a + MPC × Yd 意思是：你的消费 = 基本生活费(a) + 收入的一部分(MPC × Yd)。<br>
+                比如a=200（每月最低花200），MPC=0.8（每赚100元花80元），月收入5000元，那消费=200+0.8×5000=4200元。<br>
+                <strong>MPC记住：</strong>MPC永远在0和1之间。MPC越大→越爱花钱→乘数越大。
+              </div>
+              <div class="common-mistake">
+                <strong>⚠️ 常见误区：</strong>MPC越大，乘数越大（不是越小！）。MPC=0.8时乘数=5，MPC=0.9时乘数=10。别搞反了！
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <h3>均衡收入与乘数</h3>
+              <p><strong>均衡条件：</strong>Y = AE = C + I + G + NX（总产出=总需求）</p>
+              <p><strong>投资乘数：</strong>k = 1/(1 − MPC)</p>
+              <p><strong>政府支出乘数：</strong>ΔY/ΔG = 1/(1 − MPC)</p>
+              <p><strong>税收乘数：</strong>ΔY/ΔT = −MPC/(1 − MPC)（注意负号！减税使收入上升）</p>
+              <div class="formula">ΔY = k × ΔI = ΔI / (1 − MPC)</div>
+              <div class="plain-explain">
+                <strong>乘数效应通俗版：</strong>政府投资100万修路→建筑工人赚了100万→工人花掉80万(MPC=0.8)买家电→家电厂赚80万→家电厂工人花64万……<br>
+                总共产生的收入 = 100/(1-0.8) = 500万！这就是"滚雪球"效应。<br>
+                <strong>税收乘数为什么小？</strong>因为减税100元→你只花80元(MPC)→乘数是MPC/(1-MPC)=4，比政府直接支出的乘数5要小。直觉：减税的钱不一定全花出去。
+              </div>
+              <div class="key-point"><strong>应试要点：</strong>MPC越大，乘数越大。MPC=0.8时乘数=5。计算题通常给MPC让你算均衡收入和乘数。注意区分"自主消费a增加"和"MPC变化"的不同效应。</div>
+              <div class="common-mistake">
+                <strong>⚠️ 考试陷阱：</strong>"自主消费a增加10"和"MPC提高0.1"效果完全不同！a增加只影响截距（水平移动），MPC变化影响斜率（曲线变陡）。考试经常考这个区别。
+              </div>
+              <button class="jump-btn" onclick="jumpToModel('multiplier')">🔬 前往乘数效应交互模型 →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第11章 -->
+        <div class="accordion-item" id="concept-ch11">
+          <button class="accordion-btn">第11章：IS-LM模型 —— 产品市场与货币市场共同均衡 <span class="beginner-badge badge-hard">重点难点</span></button>
+          <div class="accordion-content">
+            <div class="plain-explain">
+              <strong>🗺️ 这章讲什么？</strong> 上一章只考虑了"产品市场"（买东西），但现实中还有"货币市场"（存钱/借钱/利率）。IS-LM模型把两个市场放在一起，同时决定<b>收入Y</b>和<b>利率r</b>。<br>
+              <strong>一句话记忆：</strong>IS管"商品买卖"，LM管"钱的借贷"，两条线交叉的地方就是均衡。
+            </div>
+
+            <div class="concept-card">
+              <h3>IS曲线（产品市场均衡）</h3>
+              <p><strong>含义：</strong>使产品市场均衡（I=S）的所有(Y, r)组合。</p>
+              <p><strong>斜率：</strong>负斜率——利率r上升 → 投资I下降 → 总需求下降 → 均衡收入Y下降。</p>
+              <p><strong>右移因素：</strong>G↑、T↓、自主消费↑、自主投资↑、NX↑</p>
+              <p><strong>左移因素：</strong>G↓、T↑、自主消费↓、自主投资↓、NX↓</p>
+              <div class="plain-explain">
+                <strong>IS曲线白话版：</strong>IS是"投资=储蓄"的连线。利率高了→企业不愿借钱投资→收入少→储蓄也少。所以IS向右下方倾斜。<br>
+                <strong>什么会让IS右移？</strong>政府花钱多了（G↑）或减税了（T↓）→总需求增加→同样的利率下收入更高→IS右移。
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <h3>LM曲线（货币市场均衡）</h3>
+              <p><strong>含义：</strong>使货币市场均衡（L=M/P）的所有(Y, r)组合。</p>
+              <p><strong>斜率：</strong>正斜率——收入Y上升 → 货币需求L↑ → 利率r上升以维持均衡。</p>
+              <p><strong>右移因素：</strong>M↑、P↓（实际货币供给增加）</p>
+              <p><strong>左移因素：</strong>M↓、P↑（实际货币供给减少）</p>
+              <div class="formula">货币需求：L = kY − hr　（k:收入敏感度, h:利率敏感度）</div>
+              <div class="plain-explain">
+                <strong>LM曲线白话版：</strong>LM是"货币供给=货币需求"的连线。收入多了→大家需要更多现金→利率必须升高才能让人少持有现金。<br>
+                <strong>什么会让LM右移？</strong>央行印更多钱（M↑）→市面上钱变多→利率下降→LM右移。
+              </div>
+              <div class="common-mistake">
+                <strong>⚠️ 最容易搞混的地方：</strong><br>
+                • IS右移 = 财政扩张（政府花钱/减税）→ Y↑, r↑<br>
+                • LM右移 = 货币扩张（央行印钱）→ Y↑, r↓<br>
+                记住：财政让利率<b>升</b>，货币让利率<b>降</b>！
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <h3>IS-LM均衡与政策</h3>
+              <p><strong>均衡点：</strong>IS与LM的交点 → 同时决定均衡Y和均衡r。</p>
+              <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;">
+                <tr style="background:var(--primary-light);"><th style="padding:6px;text-align:left;">政策</th><th style="padding:6px;">曲线移动</th><th style="padding:6px;">Y</th><th style="padding:6px;">r</th></tr>
+                <tr><td style="padding:6px;border-bottom:1px solid var(--border);">扩张财政</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;">IS右移</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;color:#dc2626;font-weight:700;">↑</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;color:#dc2626;font-weight:700;">↑</td></tr>
+                <tr><td style="padding:6px;border-bottom:1px solid var(--border);">扩张货币</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;">LM右移</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;color:#dc2626;font-weight:700;">↑</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;color:#2563eb;font-weight:700;">↓</td></tr>
+              </table>
+              <div class="key-point"><strong>挤出效应：</strong>扩张性财政 → IS右移 → r↑ → 私人投资I↓ → 部分抵消了财政扩张的效果。挤出效应在LM越陡峭时越大。</div>
+              <div class="key-point"><strong>流动性陷阱：</strong>利率极低时，LM接近水平，货币需求对利率无限敏感。此时货币政策几乎无效，但财政政策非常有效。</div>
+              <div class="plain-explain">
+                <strong>挤出效应通俗版：</strong>政府借钱修路→钱的需求增加→利率上涨→民营企业觉得借钱太贵不投资了→经济没怎么增长。<br>
+                就像在游泳池里，政府占了一大块位置，私人企业就被挤到角落去了。
+              </div>
+              <button class="jump-btn" onclick="jumpToModel('money')">🔬 前往货币市场均衡交互模型 →</button>
+              <button class="jump-btn" onclick="jumpToModel('mundell')">🔬 前往蒙代尔-弗莱明模型（含IS-LM） →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第12章 -->
+        <div class="accordion-item" id="concept-ch12">
+          <button class="accordion-btn">第12章：AD-AS模型 —— 总需求与总供给 <span class="beginner-badge badge-hard">重点难点</span></button>
+          <div class="accordion-content">
+            <div class="plain-explain">
+              <strong>🗺️ 这章讲什么？</strong> IS-LM只决定收入Y和利率r，但没考虑<b>物价P</b>。AD-AS模型加入了物价，可以分析：为什么物价会涨？经济为什么会衰退？什么叫"滞胀"？<br>
+              <strong>一句话：</strong>AD是"大家想买多少"，AS是"工厂能生产多少"，两者决定产出和价格。
+            </div>
+
+            <div class="concept-card">
+              <h3>AD曲线（总需求曲线）</h3>
+              <p><strong>从IS-LM推导：</strong>价格P↑ → 实际货币供给M/P↓ → LM左移 → r↑ → I↓ → Y↓。所以AD是向右下方倾斜的曲线。</p>
+              <p><strong>右移因素：</strong>扩张性财政政策、扩张性货币政策、消费信心↑、NX↑</p>
+              <div class="plain-explain">
+                <strong>AD为什么向下倾斜？</strong>物价涨了→手里的钱不值钱了（实际货币少了）→利率涨了→企业不投资了→总收入下降。<br>
+                <strong>生活类比：</strong>超市涨价了→你买东西要花更多钱→总消费减少→经济变冷。
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <h3>SRAS与LRAS</h3>
+              <p><strong>SRAS（短期总供给）：</strong>向上倾斜——价格上升短期内刺激企业增加产出。原因：粘性工资、粘性价格、错觉理论。</p>
+              <p><strong>LRAS（长期总供给）：</strong>垂直——长期产出由资本、劳动、技术决定，与价格无关。位置=潜在GDP（自然率产出）。</p>
+              <div class="plain-explain">
+                <strong>SRAS为什么向上倾斜？</strong>面包涨价了→面包师傅以为赚更多→多生产。但工人的工资是之前谈好的（粘性工资），所以短期成本没变，企业愿意多生产。<br>
+                <strong>LRAS为什么垂直？</strong>长期来看，工人会要求涨工资，原料也会涨价。所以涨价只是"水涨船高"，实际产量不变——产出只取决于有多少机器、工人和技术。
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <h3>冲击分析框架</h3>
+              <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;">
+                <tr style="background:var(--primary-light);"><th style="padding:6px;text-align:left;">冲击类型</th><th style="padding:6px;">曲线</th><th style="padding:6px;">Y</th><th style="padding:6px;">P</th></tr>
+                <tr><td style="padding:6px;border-bottom:1px solid var(--border);">正向需求冲击（AD右移）</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;">AD→</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;color:#dc2626;font-weight:700;">↑</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;color:#dc2626;font-weight:700;">↑</td></tr>
+                <tr><td style="padding:6px;border-bottom:1px solid var(--border);">负向供给冲击（SRAS左移）</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;">SRAS←</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;color:#2563eb;font-weight:700;">↓</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;color:#dc2626;font-weight:700;">↑</td></tr>
+              </table>
+              <div class="key-point"><strong>滞胀：</strong>负向供给冲击（如石油涨价）导致SRAS左移 → 产出下降+价格上升 = 停滞+通胀。这无法用单纯的需求管理政策解决，是宏观政策的经典难题。</div>
+              <div class="key-point"><strong>长期调整：</strong>若AD右移使Y > 潜在GDP → 工资上涨 → SRAS左移 → 经济回到潜在GDP但价格更高。扩张政策的长期效果只是推高价格。</div>
+              <div class="common-mistake">
+                <strong>⚠️ 考试最爱考的对比：</strong><br>
+                • 需求冲击（AD移动）：Y和P<b>同方向</b>变——要涨都涨，要跌都跌<br>
+                • 供给冲击（AS移动）：Y和P<b>反方向</b>变——这是"滞胀"的根源！<br>
+                <strong>记忆：</b>"需求拉涨一起涨，供给出问题一升一降"
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第13章 -->
+        <div class="accordion-item" id="concept-ch13">
+          <button class="accordion-btn">第13章：失业 / 通胀 / 经济周期</button>
+          <div class="accordion-content">
+            <div class="concept-card">
+              <h3>失业的三种类型</h3>
+              <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;">
+                <tr style="background:var(--primary-light);"><th style="padding:6px;text-align:left;">类型</th><th style="padding:6px;text-align:left;">定义</th><th style="padding:6px;text-align:left;">原因</th></tr>
+                <tr><td style="padding:6px;border-bottom:1px solid var(--border);"><strong>摩擦性失业</strong></td><td style="padding:6px;border-bottom:1px solid var(--border);">找工作的过渡期失业</td><td style="padding:6px;border-bottom:1px solid var(--border);">信息不对称、求职匹配需要时间</td></tr>
+                <tr><td style="padding:6px;border-bottom:1px solid var(--border);"><strong>结构性失业</strong></td><td style="padding:6px;border-bottom:1px solid var(--border);">技能与岗位不匹配</td><td style="padding:6px;border-bottom:1px solid var(--border);">技术变革、产业转移</td></tr>
+                <tr><td style="padding:6px;border-bottom:1px solid var(--border);"><strong>周期性失业</strong></td><td style="padding:6px;border-bottom:1px solid var(--border);">经济衰退期失业</td><td style="padding:6px;border-bottom:1px solid var(--border);">总需求不足</td></tr>
+              </table>
+              <div class="formula">自然失业率 = 摩擦性失业率 + 结构性失业率</div>
+            </div>
+
+            <div class="concept-card">
+              <h3>通货膨胀的类型</h3>
+              <p><strong>需求拉动型通胀：</strong>总需求过度增长 → AD右移 → "过多的货币追逐过少的商品"。</p>
+              <p><strong>成本推动型通胀：</strong>生产成本上升 → SRAS左移 → 价格上升但产出下降。</p>
+              <p><strong>惯性通胀：</strong>预期通胀自我实现——人们根据过去通胀预期未来通胀，工资和价格螺旋上升。</p>
+            </div>
+
+            <div class="concept-card">
+              <h3>菲利普斯曲线</h3>
+              <div class="formula">π = π<sup>e</sup> − β (u − u<sub>n</sub>)</div>
+              <p><strong>短期：</strong>失业与通胀存在替代关系（SRPC：负斜率）。<br><strong>长期：</strong>失业回到自然率，菲利普斯曲线垂直（LRPC：u = u<sub>n</sub>）。</p>
+              <div class="key-point"><strong>政策含义：</strong>短期内可以通过扩张政策降低失业（代价是通胀上升）。长期看，试图将失业压到自然率以下只会导致通胀不断加速（加速主义假说），失业最终必然回到u<sub>n</sub>。</div>
+              <button class="jump-btn" onclick="jumpToModel('phillips')">🔬 前往菲利普斯曲线交互模型 →</button>
+            </div>
+
+            <div class="concept-card">
+              <h3>经济周期的四个阶段</h3>
+              <p><strong>繁荣 → 衰退 → 萧条 → 复苏 → </strong>（循环往复）。</p>
+              <p>产出缺口 = 实际GDP − 潜在GDP。正值表示经济过热，负值表示资源闲置。</p>
+              <button class="jump-btn" onclick="jumpToModel('cycle')">🔬 前往经济周期交互模型 →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第14章 -->
+        <div class="accordion-item" id="concept-ch14">
+          <button class="accordion-btn">第14章：开放经济 —— 汇率 / 国际收支 / 蒙代尔-弗莱明模型</button>
+          <div class="accordion-content">
+            <div class="concept-card">
+              <h3>国际收支与汇率</h3>
+              <p><strong>经常账户：</strong>贸易差额（出口−进口）+ 净收入转移。</p>
+              <p><strong>资本账户：</strong>资本流入−流出。</p>
+              <p><strong>汇率：</strong>本币对外币的比价。升值 = 本币更值钱；贬值 = 本币不值钱。</p>
+              <p><strong>实际汇率：</strong>e = E × P/P*（E:名义汇率, P:国内价格, P*:国外价格）。</p>
+              <div class="formula">净出口：NX = X − M = NX₀ − m·Y</div>
+            </div>
+
+            <div class="concept-card">
+              <h3>蒙代尔-弗莱明模型（核心结论）</h3>
+              <p><strong>假设：</strong>小型开放经济 + 完全资本流动（国内利率=世界利率r*）。</p>
+              <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;">
+                <tr style="background:var(--primary-light);"><th style="padding:6px;text-align:left;">汇率制度</th><th style="padding:6px;">财政政策</th><th style="padding:6px;">货币政策</th></tr>
+                <tr><td style="padding:6px;border-bottom:1px solid var(--border);"><strong>浮动汇率</strong></td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;color:#dc2626;">无效</td><td style="padding:6px;border-bottom:1px solid var(--border);text-align:center;color:#16a34a;">有效</td></tr>
+                <tr><td style="padding:6px;"><strong>固定汇率</strong></td><td style="padding:6px;text-align:center;color:#16a34a;">有效</td><td style="padding:6px;text-align:center;color:#dc2626;">无效</td></tr>
+              </table>
+              <div class="key-point"><strong>蒙代尔不可能三角：</strong>一国不可能同时实现：①资本自由流动、②固定汇率、③独立货币政策。三者只能选其二。</div>
+              <button class="jump-btn" onclick="jumpToModel('mundell')">🔬 前往蒙代尔-弗莱明交互模型 →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第15章 -->
+        <div class="accordion-item" id="concept-ch15">
+          <button class="accordion-btn">第15章：宏观经济政策 —— 财政政策 / 货币政策工具</button>
+          <div class="accordion-content">
+            <div class="concept-card">
+              <h3>财政政策工具</h3>
+              <p><strong>政府支出G：</strong>直接拉动总需求，乘数效应大。</p>
+              <p><strong>税收T：</strong>减税 → 可支配收入↑ → 消费↑ → Y↑。乘数小于政府支出乘数（因为MPC<1）。</p>
+              <p><strong>自动稳定器：</strong>税收和转移支付自动对冲经济波动（如累进税制、失业保险），无需额外立法。</p>
+              <p><strong>政策时滞：</strong>认识时滞 + 决策时滞 + 执行时滞。财政政策的决策时滞通常更长。</p>
+              <div class="key-point"><strong>挤出效应复习：</strong>财政扩张 → IS右移 → r↑ → I↓，削弱了财政扩张的效果。但在流动性陷阱或固定汇率下，挤出效应可能消失。</div>
+            </div>
+
+            <div class="concept-card">
+              <h3>货币政策工具</h3>
+              <p><strong>三大传统工具：</strong></p>
+              <ul>
+                <li><strong>公开市场操作：</strong>央行买卖国债 → 调节货币供给（最常用、最灵活）</li>
+                <li><strong>法定准备金率：</strong>调整银行必须持有的准备金比例（效果最猛烈，很少用）</li>
+                <li><strong>再贴现率：</strong>央行对商业银行的贷款利率</li>
+              </ul>
+              <p><strong>传导机制：</strong>M↑ → r↓ → I↑ → Y↑（利率渠道）</p>
+              <div class="key-point"><strong>vs 财政政策：</strong>货币政策的决策时滞短（央行独立决策），但执行时滞可能长。在流动性陷阱中货币政策失效。固定汇率下货币政策受制于汇率目标。</div>
+              <button class="jump-btn" onclick="jumpToModel('money')">🔬 前往货币市场均衡交互模型 →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 第16章 -->
+        <div class="accordion-item" id="concept-ch16">
+          <button class="accordion-btn">第16章：经济增长 —— 索洛模型 / 技术进步</button>
+          <div class="accordion-content">
+            <div class="concept-card">
+              <h3>经济增长的来源</h3>
+              <p><strong>直接来源：</strong>资本积累（K↑）、劳动投入（L↑）、技术进步（A↑）。</p>
+              <p><strong>深层因素：</strong>制度（产权保护、法治）、人力资本（教育、健康）、开放度、地理等。</p>
+              <div class="formula">生产函数：Y = A·F(K, L)　或　Y = A·K<sup>α</sup>·L<sup>1−α</sup></div>
+            </div>
+
+            <div class="concept-card">
+              <h3>索洛增长模型</h3>
+              <p><strong>核心方程：</strong>Δk = s·f(k) − (δ + n + g)k</p>
+              <p>s·f(k)：人均储蓄/投资。（δ+n+g)k：弥补折旧、人口增长和技术进步的所需投资。</p>
+              <div class="formula">稳态条件：s·f(k*) = (δ + n + g)k*</div>
+              <p><strong>核心结论：</strong></p>
+              <ul>
+                <li>储蓄率↑ → 稳态k*和y*↑，但长期增长率不变（仍取决于技术进步）</li>
+                <li>人口增长率↑ → 稳态k*和y*↓（资本被稀释）</li>
+                <li>技术进步是长期人均产出增长的<b>唯一源泉</b></li>
+              </ul>
+              <div class="key-point"><strong>应试要点：</strong>索洛模型最重要的结论是——储蓄率影响稳态<b>水平</b>但不影响长期<b>增长率</b>。长期增长只能靠技术进步。这区分了"水平效应"和"增长效应"。</div>
+              <button class="jump-btn" onclick="jumpToModel('solow')">🔬 前往索洛增长模型交互演示 →</button>
+            </div>
+
+            <div class="concept-card">
+              <h3>内生增长理论</h3>
+              <p><strong>核心思想：</strong>技术进步不是"天降"的，而是经济体系内部产生的（研发投入、知识溢出、人力资本积累）。</p>
+              <p><strong>政策含义：</strong>补贴研发、保护知识产权、投资教育→可持续增长，而不只是水平提升。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="filter">
+      <h2>章节优先级筛选</h2>
+      <p class="small">
+        可以按题型快速筛选章节，冲刺时建议优先看"高频"和"画图"。
+      </p>
+
+      <div class="filter-actions">
+        <button class="active" data-filter="all">全部</button>
+        <button data-filter="high">高频</button>
+        <button data-filter="calc">计算</button>
+        <button data-filter="graph">画图</button>
+        <button data-filter="essay">简答论述</button>
+      </div>
+
+      <div class="chapter-list">
+        <div class="chapter-item" data-tags="high essay">
+          <strong>第9章：宏观经济指标</strong>
+          <p class="small">重点：GDP、CPI、失业率、名义变量与实际变量。</p>
+          <span class="tag">高频</span>
+          <span class="tag">简答论述</span>
+        </div>
+
+        <div class="chapter-item" data-tags="high calc">
+          <strong>第10章：收入-支出模型</strong>
+          <p class="small">重点：均衡收入、消费函数、投资乘数、政府支出乘数。</p>
+          <span class="tag">高频</span>
+          <span class="tag">计算</span>
+        </div>
+
+        <div class="chapter-item" data-tags="high graph essay">
+          <strong>第11章：IS-LM模型</strong>
+          <p class="small">重点：IS曲线、LM曲线、财政政策、货币政策、挤出效应。</p>
+          <span class="tag">高频</span>
+          <span class="tag">画图</span>
+          <span class="tag">简答论述</span>
+        </div>
+
+        <div class="chapter-item" data-tags="high graph essay">
+          <strong>第12章：AD-AS模型</strong>
+          <p class="small">重点：总需求、短期总供给、长期总供给、需求冲击、供给冲击。</p>
+          <span class="tag">高频</span>
+          <span class="tag">画图</span>
+          <span class="tag">简答论述</span>
+        </div>
+
+        <div class="chapter-item" data-tags="high essay">
+          <strong>第13章：失业、通胀与经济周期</strong>
+          <p class="small">重点：失业类型、通货膨胀成因、菲利普斯曲线、滞胀。</p>
+          <span class="tag">高频</span>
+          <span class="tag">简答论述</span>
+        </div>
+
+        <div class="chapter-item" data-tags="essay">
+          <strong>第14章：开放经济</strong>
+          <p class="small">重点：汇率、净出口、国际收支、开放条件下政策效果。</p>
+          <span class="tag">简答论述</span>
+        </div>
+
+        <div class="chapter-item" data-tags="high essay">
+          <strong>第15章：宏观经济政策</strong>
+          <p class="small">重点：财政政策、货币政策、政策时滞、自动稳定器。</p>
+          <span class="tag">高频</span>
+          <span class="tag">简答论述</span>
+        </div>
+
+        <div class="chapter-item" data-tags="essay">
+          <strong>第16章：经济增长</strong>
+          <p class="small">重点：资本积累、技术进步、人力资本、制度因素。</p>
+          <span class="tag">简答论述</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 题库系统 ===================== -->
+    <section class="card" id="quiz">
+      <h2>题库系统 <span class="beginner-badge badge-easy">零基础可看</span></h2>
+      <p class="small">
+        练习模式可即时查看答案与解析；考试模式完成全部题目后统一出分；快速抽题模式随机刷题。<br>
+        <strong style="color:#f59e0b;">💡 新功能：</strong>每道题都有"看提示"按钮，不会做时可以先看提示再答题，不扣分！
+      </p>
+
+      <div class="qb-mode-tabs">
+        <button class="qb-mode-tab active" data-qmode="practice">练习模式</button>
+        <button class="qb-mode-tab" data-qmode="exam">考试模式</button>
+        <button class="qb-mode-tab" data-qmode="random">快速抽题</button>
+      </div>
+
+      <div class="filter-actions" style="margin-top:0;">
+        <button class="active" data-qfilter="all">全部题目</button>
+        <button data-qfilter="choice">选择题(15)</button>
+        <button data-qfilter="tf">判断题(8)</button>
+        <button data-qfilter="short">简答题(7)</button>
+      </div>
+
+      <div class="qb-stats">
+        <span class="qb-stat">📊 进度：<b id="qbProgress">0/0</b></span>
+        <span class="qb-stat">✅ 正确：<b id="qbCorrect">0</b></span>
+        <span class="qb-stat">⭐ 得分：<b id="qbScore">0</b></span>
+      </div>
+
+      <div class="qb-card" id="qbCard">
+        <div class="qb-question-type qb-type-choice" id="qbTypeTag">选择题</div>
+        <div class="qb-question-text" id="qbText">请选择题型和模式，点击"开始"按钮。</div>
+        <div id="qbContent"></div>
+        <div id="qbFeedback"></div>
+      </div>
+
+      <div class="qb-navigation">
+        <button class="qb-nav-btn secondary" id="qbPrev" disabled>← 上一题</button>
+        <button class="qb-nav-btn primary" id="qbSubmit">开始答题</button>
+        <button class="qb-nav-btn secondary" id="qbNext" disabled>下一题 →</button>
+        <button class="qb-nav-btn secondary" id="qbRestart">🔄 重选模式</button>
+      </div>
+
+      <div id="qbSummary"></div>
+    </section>
+
+    <section class="card" id="check">
+      <h2>考前自测清单 <span class="beginner-badge badge-easy">零基础可看</span></h2>
+      <p class="small">
+        如果下面 8 项能完成 6 项以上，说明已经具备应试框架；如果低于 4 项，应优先回看三大模型。<br>
+        <strong>建议：</strong>先完成左侧导航"🌱 新手入口"的学习路线，再来自测效果更好。
+      </p>
+
+      <div class="checklist">
+        <label><input class="study-check" type="checkbox" /> 我能解释 GDP、CPI、失业率分别衡量什么。</label>
+        <label><input class="study-check" type="checkbox" /> 我能计算简单的均衡国民收入和乘数。</label>
+        <label><input class="study-check" type="checkbox" /> 我能画出 IS-LM，并说明财政政策、货币政策效果。</label>
+        <label><input class="study-check" type="checkbox" /> 我能画出 AD-AS，并分析需求冲击和供给冲击。</label>
+        <label><input class="study-check" type="checkbox" /> 我能区分摩擦性、结构性、周期性失业。</label>
+        <label><input class="study-check" type="checkbox" /> 我能解释需求拉动通胀、成本推动通胀和滞胀。</label>
+        <label><input class="study-check" type="checkbox" /> 我能说出财政政策和货币政策的工具、效果与局限。</label>
+        <label><input class="study-check" type="checkbox" /> 我能说明经济增长的主要来源。</label>
+      </div>
+
+      <div class="success" id="checkResult">
+        当前完成度：0%。先完成最核心的三大模型。
+      </div>
+    </section>
+
+    <!-- 菲利普斯曲线 & 蒙代尔-弗莱明交互模型 -->
+    <section class="card" id="advanced-models">
+      <h2>高级交互模型</h2>
+      <p class="small">
+        拖动滑块、切换政策与汇率制度，观察曲线如何移动。适合理解菲利普斯曲线和开放经济政策效果。
+        <a href="#concepts" class="jump-btn-inline" style="margin-left:8px;">📖 返回概念精讲</a>
+      </p>
+
+      <div class="model-tabs" style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;">
+        <button class="model-tab active" data-model="phillips">菲利普斯曲线</button>
+        <button class="model-tab" data-model="mundell">蒙代尔-弗莱明（开放经济）</button>
+        <button class="model-tab" data-model="solow">索洛增长模型</button>
+        <button class="model-tab" data-model="money">货币市场均衡</button>
+        <button class="model-tab" data-model="multiplier">乘数效应</button>
+        <button class="model-tab" data-model="cycle">经济周期</button>
+      </div>
+
+      <!-- 菲利普斯曲线面板 -->
+      <div class="model-panel active" id="panel-phillips">
+        <div class="model-grid" style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;">
+          <div>
+            <svg id="phSvg" viewBox="0 0 600 440" style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:14px;">
+              <g id="phGrid"></g>
+              <line id="phXAxis" stroke="#5a6b88" stroke-width="1.5"/>
+              <line id="phYAxis" stroke="#5a6b88" stroke-width="1.5"/>
+              <text id="phXLabel" fill="#6b7280" font-size="13">失业率 u (%)</text>
+              <text id="phYLabel" fill="#6b7280" font-size="13" transform="rotate(-90)">通货膨胀率 π (%)</text>
+              <g id="phTicks"></g>
+              <line id="lrpc" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="7 6"/>
+              <text id="lrpcLabel" fill="#16a34a" font-size="12.5" font-weight="600">LRPC</text>
+              <g id="phTrail"></g>
+              <line id="srpc" stroke="#2563eb" stroke-width="3"/>
+              <text id="srpcLabel" fill="#2563eb" font-size="12.5" font-weight="600">SRPC</text>
+              <circle id="phNat" r="5" fill="#16a34a" stroke="#fff" stroke-width="1.5"/>
+              <circle id="phCur" r="8" fill="#f59e0b" stroke="#fff" stroke-width="2" style="cursor:grab"/>
+              <text id="phCurLabel" fill="#f59e0b" font-size="12" font-weight="600"></text>
+            </svg>
+            <div class="model-legend" style="font-size:12px;color:var(--muted);margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;">
+              <span><span style="display:inline-block;width:16px;height:3px;background:#2563eb;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>短期曲线 SRPC</span>
+              <span><span style="display:inline-block;width:16px;height:3px;background:#16a34a;border-radius:2px;vertical-align:middle;margin-right:4px;border-style:dashed;"></span>长期曲线 LRPC</span>
+              <span><span style="display:inline-block;width:16px;height:3px;background:#f59e0b;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>当前经济点（可拖动）</span>
+            </div>
+          </div>
+
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:16px;">
+            <h3 style="margin:0 0 14px;color:var(--primary);">参数调节</h3>
+            <div class="ph-slider" style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">预期通胀 πᵉ <b id="vPie" style="color:var(--text);">3.0%</b></label>
+              <input type="range" id="sPie" min="0" max="8" step="0.1" value="3" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div class="ph-slider" style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">自然失业率 uₙ <b id="vUn" style="color:var(--text);">5.0%</b></label>
+              <input type="range" id="sUn" min="3" max="8" step="0.1" value="5" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div class="ph-slider" style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">曲线敏感度 β <b id="vBeta" style="color:var(--text);">1.5</b></label>
+              <input type="range" id="sBeta" min="0.5" max="3" step="0.1" value="1.5" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div style="display:flex;gap:8px;margin-top:16px;">
+              <button id="phAnim" style="background:var(--primary);color:#fff;border:0;padding:8px 14px;border-radius:8px;cursor:pointer;">▶ 演示预期螺旋</button>
+              <button id="phReset" style="background:var(--bg);border:1px solid var(--border);padding:8px 14px;border-radius:8px;cursor:pointer;">重置</button>
+            </div>
+            <div style="margin-top:14px;font-family:'Cambria Math','Times New Roman',serif;font-size:16px;font-weight:700;background:var(--primary-light);padding:10px;border-radius:8px;text-align:center;color:var(--primary);">π = πᵉ − β (u − uₙ)</div>
+            <div id="phRead" style="margin-top:14px;font-size:13px;line-height:1.7;min-height:80px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;"></div>
+            <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.7;border-top:1px dashed var(--border);padding-top:12px;">
+              短期内通胀与失业存在<b style="color:#f59e0b;">权衡</b>：降低失业要付出更高通胀。
+              但预期 πᵉ 上升会让整条短期曲线<b style="color:#f59e0b;">向上平移</b>。
+              长期看，失业回到自然率 uₙ，曲线变为垂直——这就是
+              <b style="color:#16a34a;">货币中性</b>与"滞胀"的根源。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 蒙代尔-弗莱明面板 -->
+      <div class="model-panel" id="panel-mundell">
+        <div class="model-grid" style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;">
+          <div>
+            <svg id="mfSvg" viewBox="0 0 600 440" style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:14px;">
+              <g id="mfGrid"></g>
+              <line id="mfXAxis" stroke="#5a6b88" stroke-width="1.5"/>
+              <line id="mfYAxis" stroke="#5a6b88" stroke-width="1.5"/>
+              <text id="mfXLabel" fill="#6b7280" font-size="13">国民收入 Y</text>
+              <text id="mfYLabel" fill="#6b7280" font-size="13" transform="rotate(-90)">利率 r (%)</text>
+              <g id="mfTicks"></g>
+              <line id="bpLine" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="2 5"/>
+              <text id="bpLabel" fill="#f59e0b" font-size="12.5" font-weight="600">BP (r = r*)</text>
+              <line id="isGhost" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 4" opacity="0"/>
+              <line id="lmGhost" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 4" opacity="0"/>
+              <line id="isLine" stroke="#2563eb" stroke-width="3"/>
+              <text id="isLabel" fill="#2563eb" font-size="13" font-weight="600">IS</text>
+              <line id="lmLine" stroke="#f59e0b" stroke-width="3"/>
+              <text id="lmLabel" fill="#f59e0b" font-size="13" font-weight="600">LM</text>
+              <line id="eqDropX" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3 4"/>
+              <line id="eqDropY" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3 4"/>
+              <circle id="mfEq" r="7" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+              <text id="mfEqLabel" fill="#16a34a" font-size="12" font-weight="600"></text>
+            </svg>
+            <div class="model-legend" style="font-size:12px;color:var(--muted);margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;">
+              <span><span style="display:inline-block;width:16px;height:3px;background:#2563eb;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>IS（商品市场）</span>
+              <span><span style="display:inline-block;width:16px;height:3px;background:#f59e0b;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>LM（货币市场）</span>
+              <span><span style="display:inline-block;width:16px;height:3px;background:#f59e0b;border-radius:2px;vertical-align:middle;margin-right:4px;border-style:dashed;"></span>BP（完全资本流动）</span>
+              <span><span style="display:inline-block;width:16px;height:3px;background:#16a34a;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>均衡点</span>
+            </div>
+          </div>
+
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:16px;">
+            <h3 style="margin:0 0 14px;color:var(--primary);">汇率制度</h3>
+            <div style="display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;" id="regimeSeg">
+              <button style="background:var(--primary);color:#fff;border:0;padding:8px 14px;cursor:pointer;" data-reg="float">浮动汇率</button>
+              <button style="background:var(--bg);border:0;border-left:1px solid var(--border);padding:8px 14px;cursor:pointer;" data-reg="fix">固定汇率</button>
+            </div>
+            <h3 style="margin:20px 0 14px;color:var(--primary);">政策冲击</h3>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <button id="fiscal" style="background:var(--bg);border:1px solid var(--border);padding:8px 14px;border-radius:8px;cursor:pointer;">财政扩张 (G↑)</button>
+              <button id="monetary" style="background:var(--bg);border:1px solid var(--border);padding:8px 14px;border-radius:8px;cursor:pointer;">货币扩张 (M↑)</button>
+              <button id="mfReset" style="background:var(--bg);border:1px solid var(--border);padding:8px 14px;border-radius:8px;cursor:pointer;">重置均衡</button>
+            </div>
+            <div id="mfRead" style="margin-top:16px;font-size:13px;line-height:1.7;min-height:80px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;"></div>
+            <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.7;border-top:1px dashed var(--border);padding-top:12px;">
+              假设<b style="color:#f59e0b;">完全资本流动</b>，BP 线水平于世界利率 r*。
+              国内利率任何偏离都会引发巨量资本流动。这导致著名的
+              <b>"蒙代尔不可能三角"</b>结论：
+              <br>· <b style="color:#16a34a;">浮动汇率</b>下货币政策有效、财政政策被汇率挤出；
+              <br>· <b style="color:#16a34a;">固定汇率</b>下财政政策有效、货币政策被外汇干预抵消。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== 索洛增长模型 ===================== -->
+      <div class="model-panel" id="panel-solow">
+        <div class="model-grid" style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;">
+          <div>
+            <svg id="solowSvg" viewBox="0 0 600 440" style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:14px;">
+              <g id="solowGrid"></g>
+              <line id="solowXAxis" stroke="#5a6b88" stroke-width="1.5"/>
+              <line id="solowYAxis" stroke="#5a6b88" stroke-width="1.5"/>
+              <text id="solowXLabel" fill="#6b7280" font-size="13">人均资本 k</text>
+              <text id="solowYLabel" fill="#6b7280" font-size="13" transform="rotate(-90)">人均产出 y / 投资 / 折旧</text>
+              <g id="solowTicks"></g>
+              <!-- 折旧线 δk -->
+              <line id="depLine" stroke="#f59e0b" stroke-width="2.5"/>
+              <text id="depLabel" fill="#f59e0b" font-size="12.5" font-weight="600">(δ+n)k</text>
+              <!-- 生产函数 f(k) -->
+              <path id="prodCurve" fill="none" stroke="#2563eb" stroke-width="3"/>
+              <text id="prodLabel" fill="#2563eb" font-size="12.5" font-weight="600">y=f(k)</text>
+              <!-- 储蓄曲线 s·f(k) -->
+              <path id="savCurve" fill="none" stroke="#16a34a" stroke-width="3"/>
+              <text id="savLabel" fill="#16a34a" font-size="12.5" font-weight="600">s·f(k)</text>
+              <!-- 稳态虚线 -->
+              <line id="kStarLine" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 4"/>
+              <line id="yStarLine" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 4"/>
+              <!-- 稳态点 -->
+              <circle id="kStarDot" r="6" fill="#dc2626" stroke="#fff" stroke-width="2"/>
+              <text id="kStarLabel" fill="#dc2626" font-size="12" font-weight="600"></text>
+            </svg>
+            <div style="font-size:12px;color:var(--muted);margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;">
+              <span><span style="display:inline-block;width:16px;height:3px;background:#2563eb;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>生产函数 f(k)</span>
+              <span><span style="display:inline-block;width:16px;height:3px;background:#16a34a;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>储蓄 s·f(k)</span>
+              <span><span style="display:inline-block;width:16px;height:3px;background:#f59e0b;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>持平投资 (δ+n)k</span>
+              <span><span style="display:inline-block;width:8px;height:8px;background:#dc2626;border-radius:50%;vertical-align:middle;margin-right:4px;"></span>稳态点 k*</span>
+            </div>
+          </div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:16px;">
+            <h3 style="margin:0 0 14px;color:var(--primary);">参数调节</h3>
+            <div style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">储蓄率 s <b id="vSolowS" style="color:var(--text);">0.30</b></label>
+              <input type="range" id="sSolowS" min="0.1" max="0.6" step="0.01" value="0.3" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">折旧率 δ <b id="vSolowD" style="color:var(--text);">0.10</b></label>
+              <input type="range" id="sSolowD" min="0.02" max="0.25" step="0.01" value="0.1" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">技术水平 A <b id="vSolowA" style="color:var(--text);">2.0</b></label>
+              <input type="range" id="sSolowA" min="1" max="4" step="0.1" value="2" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">人口增长率 n <b id="vSolowN" style="color:var(--text);">0.02</b></label>
+              <input type="range" id="sSolowN" min="0" max="0.08" step="0.005" value="0.02" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div style="display:flex;gap:8px;margin-top:16px;">
+              <button id="solowReset" style="background:var(--bg);border:1px solid var(--border);padding:8px 14px;border-radius:8px;cursor:pointer;">重置</button>
+            </div>
+            <div style="margin-top:14px;font-family:'Cambria Math','Times New Roman',serif;font-size:15px;font-weight:700;background:var(--primary-light);padding:10px;border-radius:8px;text-align:center;color:var(--primary);">稳态条件：s·f(k*) = (δ+n)k*</div>
+            <div id="solowRead" style="margin-top:14px;font-size:13px;line-height:1.7;min-height:100px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;"></div>
+            <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.7;border-top:1px dashed var(--border);padding-top:12px;">
+              储蓄率↑ → 稳态资本k*↑、产出y*↑，但<b>长期增长率不变</b>（技术进步才是长期增长源泉）。
+              这是索洛模型最核心的结论。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== 货币市场均衡 ===================== -->
+      <div class="model-panel" id="panel-money">
+        <div class="model-grid" style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;">
+          <div>
+            <svg id="moneySvg" viewBox="0 0 600 440" style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:14px;">
+              <g id="moneyGrid"></g>
+              <line id="moneyXAxis" stroke="#5a6b88" stroke-width="1.5"/>
+              <line id="moneyYAxis" stroke="#5a6b88" stroke-width="1.5"/>
+              <text id="moneyXLabel" fill="#6b7280" font-size="13">货币量 M/P</text>
+              <text id="moneyYLabel" fill="#6b7280" font-size="13" transform="rotate(-90)">利率 r (%)</text>
+              <g id="moneyTicks"></g>
+              <line id="mdCurve" stroke="#2563eb" stroke-width="3"/>
+              <text id="mdLabel" fill="#2563eb" font-size="13" font-weight="600">L(r)</text>
+              <line id="msCurve" stroke="#f59e0b" stroke-width="3"/>
+              <text id="msLabel" fill="#f59e0b" font-size="13" font-weight="600">M/P</text>
+              <line id="msGhost" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 4" opacity="0"/>
+              <line id="moneyEqDropX" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3 4"/>
+              <line id="moneyEqDropY" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3 4"/>
+              <circle id="moneyEq" r="6" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+              <text id="moneyEqLabel" fill="#16a34a" font-size="12" font-weight="600"></text>
+            </svg>
+            <div style="font-size:12px;color:var(--muted);margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;">
+              <span><span style="display:inline-block;width:16px;height:3px;background:#2563eb;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>货币需求 L(r)</span>
+              <span><span style="display:inline-block;width:16px;height:3px;background:#f59e0b;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>货币供给 M/P</span>
+              <span><span style="display:inline-block;width:8px;height:8px;background:#16a34a;border-radius:50%;vertical-align:middle;margin-right:4px;"></span>均衡点</span>
+            </div>
+          </div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:16px;">
+            <h3 style="margin:0 0 14px;color:var(--primary);">货币供给调节</h3>
+            <div style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">名义货币供给 M <b id="vMoneyM" style="color:var(--text);">500</b></label>
+              <input type="range" id="sMoneyM" min="200" max="800" step="10" value="500" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">收入水平 Y（影响需求） <b id="vMoneyY" style="color:var(--text);">100</b></label>
+              <input type="range" id="sMoneyY" min="50" max="200" step="5" value="100" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;">
+              <button id="moneyEase" style="background:var(--primary);color:#fff;border:0;padding:8px 14px;border-radius:8px;cursor:pointer;">▶ 扩张性货币政策</button>
+              <button id="moneyReset" style="background:var(--bg);border:1px solid var(--border);padding:8px 14px;border-radius:8px;cursor:pointer;">重置</button>
+            </div>
+            <div style="margin-top:14px;font-family:'Cambria Math','Times New Roman',serif;font-size:15px;font-weight:700;background:var(--primary-light);padding:10px;border-radius:8px;text-align:center;color:var(--primary);">M/P = L(Y, r) = kY − hr</div>
+            <div id="moneyRead" style="margin-top:14px;font-size:13px;line-height:1.7;min-height:100px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;"></div>
+            <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.7;border-top:1px dashed var(--border);padding-top:12px;">
+              央行公开市场操作买入债券 → M↑ → M/P右移 → 均衡利率r↓ → 投资I↑ → 收入Y↑。
+              这就是货币政策传导的利率渠道。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== 乘数效应 ===================== -->
+      <div class="model-panel" id="panel-multiplier">
+        <div class="model-grid" style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;">
+          <div>
+            <svg id="mulSvg" viewBox="0 0 600 440" style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:14px;">
+              <g id="mulGrid"></g>
+              <line id="mulXAxis" stroke="#5a6b88" stroke-width="1.5"/>
+              <line id="mulYAxis" stroke="#5a6b88" stroke-width="1.5"/>
+              <text id="mulXLabel" fill="#6b7280" font-size="13">支出轮次</text>
+              <text id="mulYLabel" fill="#6b7280" font-size="13" transform="rotate(-90)">本轮支出</text>
+              <g id="mulTicks"></g>
+              <g id="mulBars"></g>
+              <line id="mulTotalLine" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4"/>
+              <text id="mulTotalLabel" fill="#dc2626" font-size="13" font-weight="600"></text>
+            </svg>
+            <div style="font-size:12px;color:var(--muted);margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;">
+              <span><span style="display:inline-block;width:12px;height:12px;background:#2563eb;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>逐轮支出</span>
+              <span><span style="display:inline-block;width:12px;height:12px;background:#16a34a;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>累计 ΔY</span>
+              <span><span style="display:inline-block;width:16px;height:2px;background:#dc2626;vertical-align:middle;margin-right:4px;"></span>乘数极限</span>
+            </div>
+          </div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:16px;">
+            <h3 style="margin:0 0 14px;color:var(--primary);">参数调节</h3>
+            <div style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">边际消费倾向 MPC <b id="vMulMpc" style="color:var(--text);">0.80</b></label>
+              <input type="range" id="sMulMpc" min="0.3" max="0.95" step="0.01" value="0.8" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">初始投资变动 ΔI <b id="vMulDI" style="color:var(--text);">100</b></label>
+              <input type="range" id="sMulDI" min="50" max="300" step="10" value="100" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;">
+              <button id="mulAnim" style="background:var(--primary);color:#fff;border:0;padding:8px 14px;border-radius:8px;cursor:pointer;">▶ 逐轮演示</button>
+              <button id="mulReset" style="background:var(--bg);border:1px solid var(--border);padding:8px 14px;border-radius:8px;cursor:pointer;">重置</button>
+            </div>
+            <div style="margin-top:14px;font-family:'Cambria Math','Times New Roman',serif;font-size:15px;font-weight:700;background:var(--primary-light);padding:10px;border-radius:8px;text-align:center;color:var(--primary);">ΔY = ΔI / (1 − MPC) = <span id="mulFormula">500</span></div>
+            <div id="mulRead" style="margin-top:14px;font-size:13px;line-height:1.7;min-height:80px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;"></div>
+            <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.7;border-top:1px dashed var(--border);padding-top:12px;">
+              第1轮：ΔI。第2轮：ΔI×MPC。第3轮：ΔI×MPC²……无限加总后 ΔY = ΔI/(1−MPC)。
+              MPC越接近1，乘数越大，但收敛越慢。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== 经济周期 ===================== -->
+      <div class="model-panel" id="panel-cycle">
+        <div class="model-grid" style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px;">
+          <div>
+            <svg id="cycSvg" viewBox="0 0 600 440" style="width:100%;background:var(--card);border:1px solid var(--border);border-radius:14px;">
+              <g id="cycGrid"></g>
+              <!-- 阶段色带 -->
+              <rect id="cycBoomBg" fill="rgba(220,38,38,0.06)"/>
+              <rect id="cycRecessBg" fill="rgba(245,158,11,0.06)"/>
+              <rect id="cycDepressBg" fill="rgba(37,99,235,0.06)"/>
+              <rect id="cycRecoverBg" fill="rgba(22,163,74,0.06)"/>
+              <rect id="cycBoomBg2" fill="rgba(220,38,38,0.06)"/>
+              <rect id="cycRecessBg2" fill="rgba(245,158,11,0.06)"/>
+              <rect id="cycDepressBg2" fill="rgba(37,99,235,0.06)"/>
+              <rect id="cycRecoverBg2" fill="rgba(22,163,74,0.06)"/>
+              <line id="cycXAxis" stroke="#5a6b88" stroke-width="1.5"/>
+              <line id="cycYAxis" stroke="#5a6b88" stroke-width="1.5"/>
+              <text id="cycXLabel" fill="#6b7280" font-size="13">时间 t</text>
+              <text id="cycYLabel" fill="#6b7280" font-size="13" transform="rotate(-90)">实际 GDP</text>
+              <g id="cycTicks"></g>
+              <!-- 潜在GDP趋势线 -->
+              <line id="cycTrend" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"/>
+              <text id="cycTrendLabel" fill="#9ca3af" font-size="12" font-weight="600">潜在GDP</text>
+              <!-- 实际GDP波动线 -->
+              <path id="cycWave" fill="none" stroke="#2563eb" stroke-width="3"/>
+              <text id="cycWaveLabel" fill="#2563eb" font-size="12.5" font-weight="600">实际GDP</text>
+              <!-- 可拖动指示线 -->
+              <line id="cycCursor" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 3"/>
+              <circle id="cycCursorDot" r="7" fill="#f59e0b" stroke="#fff" stroke-width="2" style="cursor:grab"/>
+              <text id="cycCursorLabel" fill="#f59e0b" font-size="12" font-weight="600"></text>
+              <!-- 阶段标签 -->
+              <text id="cycPhaseLabel" fill="#111827" font-size="14" font-weight="700" text-anchor="middle"></text>
+            </svg>
+            <div style="font-size:12px;color:var(--muted);margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;">
+              <span><span style="display:inline-block;width:16px;height:3px;background:#2563eb;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>实际GDP</span>
+              <span><span style="display:inline-block;width:16px;height:3px;background:#9ca3af;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>潜在GDP趋势线</span>
+              <span><span style="display:inline-block;width:16px;height:3px;background:#f59e0b;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>拖动查看阶段</span>
+            </div>
+          </div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:16px;">
+            <h3 style="margin:0 0 14px;color:var(--primary);">周期调节</h3>
+            <div style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">波动幅度 <b id="vCycAmp" style="color:var(--text);">30</b></label>
+              <input type="range" id="sCycAmp" min="10" max="60" step="5" value="30" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div style="margin:14px 0;">
+              <label style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">趋势增长率 <b id="vCycGr" style="color:var(--text);">3.0%</b></label>
+              <input type="range" id="sCycGr" min="0" max="8" step="0.5" value="3" style="width:100%;accent-color:var(--primary);">
+            </div>
+            <div style="display:flex;gap:8px;margin-top:16px;">
+              <button id="cycAnim" style="background:var(--primary);color:#fff;border:0;padding:8px 14px;border-radius:8px;cursor:pointer;">▶ 自动扫描</button>
+              <button id="cycReset" style="background:var(--bg);border:1px solid var(--border);padding:8px 14px;border-radius:8px;cursor:pointer;">重置</button>
+            </div>
+            <div style="margin-top:14px;font-family:'Cambria Math','Times New Roman',serif;font-size:15px;font-weight:700;background:var(--primary-light);padding:10px;border-radius:8px;text-align:center;color:var(--primary);">产出缺口 = 实际GDP − 潜在GDP</div>
+            <div id="cycRead" style="margin-top:14px;font-size:13px;line-height:1.7;min-height:100px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;"></div>
+            <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.7;border-top:1px dashed var(--border);padding-top:12px;">
+              <b style="color:#dc2626;">繁荣</b>：实际>潜在，通胀压力。
+              <b style="color:#f59e0b;">衰退</b>：实际从峰顶回落。
+              <b style="color:#2563eb;">萧条</b>：实际远低于潜在，失业严重。
+              <b style="color:#16a34a;">复苏</b>：实际从谷底回升。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    宏观经济学一天速通交互式复习页｜建议结合教材例题和真题使用
+  </footer>
+
+  <script>
+    const checks = document.querySelectorAll(".study-check");
+    const progressBar = document.getElementById("studyProgress");
+    const checkResult = document.getElementById("checkResult");
+
+    /* ---- localStorage 键名 ---- */
+    var LS_CHECK = 'macro_review_checks';
+    var LS_QUIZ  = 'macro_review_quiz';
+
+    function updateProgress() {
+      const total = checks.length;
+      const done = Array.from(checks).filter(item => item.checked).length;
+      const percent = total === 0 ? 0 : Math.round((done / total) * 100);
+
+      if (progressBar) {
+        progressBar.style.width = percent + "%";
+      }
+
+      if (checkResult) {
+        let text = "当前完成度：" + percent + "%。";
+
+        if (percent < 40) {
+          text += " 建议先回看收入-支出、IS-LM、AD-AS 三大模型。";
+        } else if (percent < 75) {
+          text += " 已经有基础，继续补政策分析和高频概念。";
+        } else {
+          text += " 状态不错，可以进入闭卷默写和真题训练。";
+        }
+
+        checkResult.textContent = text;
+      }
+      // 持久化
+      try {
+        var states = Array.from(checks).map(function(c){ return c.checked; });
+        localStorage.setItem(LS_CHECK, JSON.stringify(states));
+      } catch(e) {}
+    }
+
+    // 恢复自测清单
+    try {
+      var savedChecks = JSON.parse(localStorage.getItem(LS_CHECK));
+      if (savedChecks && savedChecks.length === checks.length) {
+        checks.forEach(function(c, i){ c.checked = !!savedChecks[i]; });
+      }
+    } catch(e) {}
+
+    checks.forEach(item => {
+      item.addEventListener("change", updateProgress);
+    });
+
+    updateProgress();
+
+    document.querySelectorAll(".accordion-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        btn.parentElement.classList.toggle("active");
+      });
+    });
+
+    const darkModeBtn = document.getElementById("darkModeBtn");
+
+    /* 暗色模式 click 事件统一在脚本末尾注册 */
+
+    const isLine = document.getElementById("isLine");
+    const lmLine = document.getElementById("lmLine");
+    const isText = document.getElementById("isText");
+    const lmText = document.getElementById("lmText");
+    const islmPoint = document.getElementById("islmPoint");
+    const islmPointText = document.getElementById("islmPointText");
+    const islmExplain = document.getElementById("islmExplain");
+
+    function setISLM(type) {
+      if (type === "base") {
+        isLine.setAttribute("x1", "70");
+        isLine.setAttribute("y1", "60");
+        isLine.setAttribute("x2", "250");
+        isLine.setAttribute("y2", "180");
+        isText.setAttribute("x", "235");
+        isText.setAttribute("y", "170");
+
+        lmLine.setAttribute("x1", "75");
+        lmLine.setAttribute("y1", "180");
+        lmLine.setAttribute("x2", "250");
+        lmLine.setAttribute("y2", "55");
+        lmText.setAttribute("x", "235");
+        lmText.setAttribute("y", "68");
+
+        islmPoint.setAttribute("cx", "162");
+        islmPoint.setAttribute("cy", "122");
+        islmPointText.setAttribute("x", "170");
+        islmPointText.setAttribute("y", "120");
+
+        islmExplain.textContent = "基础状态：IS 与 LM 的交点决定均衡收入 Y 与利率 r。";
+      }
+
+      if (type === "fiscal") {
+        isLine.setAttribute("x1", "105");
+        isLine.setAttribute("y1", "60");
+        isLine.setAttribute("x2", "285");
+        isLine.setAttribute("y2", "180");
+        isText.setAttribute("x", "265");
+        isText.setAttribute("y", "170");
+
+        lmLine.setAttribute("x1", "75");
+        lmLine.setAttribute("y1", "180");
+        lmLine.setAttribute("x2", "250");
+        lmLine.setAttribute("y2", "55");
+        lmText.setAttribute("x", "235");
+        lmText.setAttribute("y", "68");
+
+        islmPoint.setAttribute("cx", "182");
+        islmPoint.setAttribute("cy", "104");
+        islmPointText.setAttribute("x", "190");
+        islmPointText.setAttribute("y", "102");
+
+        islmExplain.textContent = "扩张财政：政府支出增加或减税使 IS 右移，通常导致收入 Y 上升、利率 r 上升。";
+      }
+
+      if (type === "money") {
+        isLine.setAttribute("x1", "70");
+        isLine.setAttribute("y1", "60");
+        isLine.setAttribute("x2", "250");
+        isLine.setAttribute("y2", "180");
+        isText.setAttribute("x", "235");
+        isText.setAttribute("y", "170");
+
+        lmLine.setAttribute("x1", "110");
+        lmLine.setAttribute("y1", "185");
+        lmLine.setAttribute("x2", "285");
+        lmLine.setAttribute("y2", "60");
+        lmText.setAttribute("x", "265");
+        lmText.setAttribute("y", "72");
+
+        islmPoint.setAttribute("cx", "188");
+        islmPoint.setAttribute("cy", "138");
+        islmPointText.setAttribute("x", "196");
+        islmPointText.setAttribute("y", "136");
+
+        islmExplain.textContent = "扩张货币：货币供给增加使 LM 右移，通常导致收入 Y 上升、利率 r 下降。";
+      }
+    }
+
+    document.querySelectorAll("[data-islm]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        setISLM(btn.dataset.islm);
+      });
+    });
+
+    const adLine = document.getElementById("adLine");
+    const asLine = document.getElementById("asLine");
+    const adText = document.getElementById("adText");
+    const asText = document.getElementById("asText");
+    const adasPoint = document.getElementById("adasPoint");
+    const adasPointText = document.getElementById("adasPointText");
+    const adasExplain = document.getElementById("adasExplain");
+
+    function setADAS(type) {
+      if (type === "base") {
+        adLine.setAttribute("x1", "75");
+        adLine.setAttribute("y1", "60");
+        adLine.setAttribute("x2", "250");
+        adLine.setAttribute("y2", "180");
+        adText.setAttribute("x", "230");
+        adText.setAttribute("y", "174");
+
+        asLine.setAttribute("x1", "80");
+        asLine.setAttribute("y1", "180");
+        asLine.setAttribute("x2", "245");
+        asLine.setAttribute("y2", "55");
+        asText.setAttribute("x", "230");
+        asText.setAttribute("y", "66");
+
+        adasPoint.setAttribute("cx", "162");
+        adasPoint.setAttribute("cy", "122");
+        adasPointText.setAttribute("x", "170");
+        adasPointText.setAttribute("y", "120");
+
+        adasExplain.textContent = "基础状态：AD 与 SRAS 的交点决定短期均衡产出 Y 与价格水平 P。";
+      }
+
+      if (type === "demand") {
+        adLine.setAttribute("x1", "110");
+        adLine.setAttribute("y1", "60");
+        adLine.setAttribute("x2", "285");
+        adLine.setAttribute("y2", "180");
+        adText.setAttribute("x", "262");
+        adText.setAttribute("y", "174");
+
+        asLine.setAttribute("x1", "80");
+        asLine.setAttribute("y1", "180");
+        asLine.setAttribute("x2", "245");
+        asLine.setAttribute("y2", "55");
+        asText.setAttribute("x", "230");
+        asText.setAttribute("y", "66");
+
+        adasPoint.setAttribute("cx", "182");
+        adasPoint.setAttribute("cy", "104");
+        adasPointText.setAttribute("x", "190");
+        adasPointText.setAttribute("y", "102");
+
+        adasExplain.textContent = "需求扩张：AD 右移，短期内产出 Y 上升、价格水平 P 上升。";
+      }
+
+      if (type === "supply") {
+        adLine.setAttribute("x1", "75");
+        adLine.setAttribute("y1", "60");
+        adLine.setAttribute("x2", "250");
+        adLine.setAttribute("y2", "180");
+        adText.setAttribute("x", "230");
+        adText.setAttribute("y", "174");
+
+        asLine.setAttribute("x1", "45");
+        asLine.setAttribute("y1", "180");
+        asLine.setAttribute("x2", "210");
+        asLine.setAttribute("y2", "55");
+        asText.setAttribute("x", "195");
+        asText.setAttribute("y", "66");
+
+        adasPoint.setAttribute("cx", "142");
+        adasPoint.setAttribute("cy", "104");
+        adasPointText.setAttribute("x", "150");
+        adasPointText.setAttribute("y", "102");
+
+        adasExplain.textContent = "负向供给冲击：SRAS 左移，通常导致产出 Y 下降、价格水平 P 上升，可能出现滞胀。";
+      }
+    }
+
+    document.querySelectorAll("[data-adas]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        setADAS(btn.dataset.adas);
+      });
+    });
+
+    const filterButtons = document.querySelectorAll("[data-filter]");
+    const chapterItems = document.querySelectorAll(".chapter-item");
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const filter = btn.dataset.filter;
+
+        filterButtons.forEach(item => item.classList.remove("active"));
+        btn.classList.add("active");
+
+        chapterItems.forEach(item => {
+          const tags = item.dataset.tags || "";
+          const shouldShow = filter === "all" || tags.includes(filter);
+          item.style.display = shouldShow ? "block" : "none";
+        });
+      });
+    });
+
+    /* ============ 题库系统 ============ */
+    const QB = {
+      mode: 'practice',  // 'practice' | 'exam' | 'random'
+      filter: 'all',     // 'all' | 'choice' | 'tf' | 'short'
+      pool: [],          // 筛选后的题目池
+      index: 0,          // 当前题目在 pool 中的索引
+      answers: {},       // { poolIndex: userAnswer }
+      started: false,
+      submitted: false,
+      results: {}        // { poolIndex: true/false }
+    };
+
+    const QB_ALL = [
+      // ===== 选择题 (15) =====
+      { id:1,  type:'choice', chapter:9,  question:'关于GDP，以下说法正确的是？', options:['A. GDP包含中间产品的价值','B. GDP衡量的是存量而非流量','C. GDP按市场价格计算最终产品的价值','D. GDP等于GNP加净要素收入'], answer:2, explanation:'GDP是一定时期内生产的最终产品的市场价值（流量），不包含中间产品。GDP + 净要素收入 = GNP。', hint:'想想"GDP"中的"D"代表Domestic（国内），衡量的是最终产品的价值。中间产品（如面粉）被重复计算了吗？' },
+      { id:2,  type:'choice', chapter:9,  question:'实际GDP与名义GDP的区别在于？', options:['A. 实际GDP包含进口品','B. 实际GDP按基年价格计算，消除了价格变动','C. 实际GDP大于名义GDP','D. 实际GDP用当期价格计算'], answer:1, explanation:'实际GDP以基年价格计算，剔除了价格变动的影响，反映的是真实的产出变化。计算增长率必须用实际GDP。', hint:'关键词是"消除价格变动"。想想：如果所有商品都涨价10%，但产量没变，哪个GDP能反映"产量没变"这个事实？' },
+      { id:3,  type:'choice', chapter:10, question:'若边际消费倾向MPC=0.75，则投资乘数为？', options:['A. 0.75','B. 1.33','C. 4','D. 5'], answer:2, explanation:'投资乘数 k = 1/(1−MPC) = 1/(1−0.75) = 1/0.25 = 4。', hint:'记住公式 k = 1/(1−MPC)。把MPC=0.75代入：1/(1−0.75) = 1/0.25 = ?' },
+      { id:4,  type:'choice', chapter:10, question:'在收入-支出模型中，均衡收入的条件是？', options:['A. 投资等于储蓄','B. 总产出等于总需求','C. 政府支出等于税收','D. 出口等于进口'], answer:1, explanation:'均衡条件是 Y = AE = C+I+G+NX，即总产出等于总需求。投资等于储蓄是两部门经济中的等价条件。', hint:'均衡就是"不多不少"。想想：工厂生产了多少东西，市场上就有人全部买走——这叫什么？' },
+      { id:5,  type:'choice', chapter:11, question:'在IS-LM模型中，扩张性财政政策的影响是？', options:['A. IS左移，r下降，Y下降','B. IS右移，r上升，Y上升','C. LM右移，r下降，Y上升','D. LM左移，r上升，Y下降'], answer:1, explanation:'扩张性财政（G↑或T↓）使IS右移，新均衡点处Y和r都上升。', hint:'财政政策（政府花钱/收税）影响的是IS曲线还是LM曲线？政府多花钱，经济变热，利率会升还是降？' },
+      { id:6,  type:'choice', chapter:11, question:'"挤出效应"指的是？', options:['A. 政府支出挤出了消费','B. 利率上升导致私人投资减少','C. 进口挤出了国内生产','D. 税收挤出了储蓄'], answer:1, explanation:'挤出效应是指扩张性财政政策推高利率，导致私人投资被挤出。LM越陡峭（货币需求对利率越不敏感），挤出效应越大。', hint:'"挤出"是谁挤了谁？政府借钱投资→利率上涨→企业借钱成本变高→企业不投资了。这是政府挤了企业的"投资"。' },
+      { id:7,  type:'choice', chapter:12, question:'在AD-AS模型中，负向供给冲击会导致？', options:['A. 产出上升、价格下降','B. 产出下降、价格下降','C. 产出下降、价格上升','D. 产出和价格都不变'], answer:2, explanation:'负向供给冲击使SRAS左移，导致产出下降、价格上升，即"滞胀"。典型例子是石油危机。', hint:'供给冲击是"工厂出问题了"（如石油涨价导致生产成本上升）。工厂能生产的东西变少了（Y↓），但成本高了物价涨了（P↑）。这就是"滞胀"。' },
+      { id:8,  type:'choice', chapter:12, question:'长期总供给曲线LRAS是垂直的，因为？', options:['A. 价格刚性','B. 名义工资粘性','C. 长期产出由资本、劳动和技术决定，与价格无关','D. 货币数量论'], answer:2, explanation:'长期中价格和工资完全灵活，产出回到潜在GDP水平，由生产要素和技术决定，与价格水平无关。', hint:'想想：如果所有东西都涨价10%，工人的工资也会涨10%，企业成本也涨10%。最后实际产出变了吗？长期中什么都调整完了，产出只取决于有多少机器和工人。' },
+      { id:9,  type:'choice', chapter:13, question:'自然失业率包括？', options:['A. 摩擦性失业+周期性失业','B. 结构性失业+周期性失业','C. 摩擦性失业+结构性失业','D. 全部三类失业'], answer:2, explanation:'自然失业率 = 摩擦性失业 + 结构性失业，是经济正常运转时的最低失业率。周期性失业是经济衰退导致的额外失业。', hint:'"自然"失业就是"正常"失业——就算经济很好也存在的失业。找工作需要时间（摩擦性），技能不匹配（结构性）——这些不会因为经济好就消失。周期性失业是"不正常"的。' },
+      { id:10, type:'choice', chapter:13, question:'根据菲利普斯曲线，短期内降低失业的代价是？', options:['A. 更高的经济增长','B. 更高的通货膨胀','C. 更低的利率','D. 更低的政府支出'], answer:1, explanation:'短期菲利普斯曲线表明失业与通胀存在替代关系——降低失业需要接受更高的通胀。但长期来看失业必然回到自然率。', hint:'菲利普斯曲线说的是"失业和通胀的权衡"。想要更多人有工作→企业要招人→工资涨了→物价涨了。所以低失业的代价是高通胀。' },
+      { id:11, type:'choice', chapter:14, question:'浮动汇率制度下，扩张性货币政策的效果如何？', options:['A. 无效，因为资本外流使LM回移','B. 有效，本币贬值刺激净出口','C. 有效，但只影响价格不影响产出','D. 无效，因为汇率固定'], answer:1, explanation:'浮动汇率下，M↑ → LM右移 → r↓ → 资本流出 → 本币贬值 → NX↑ → IS右移 → Y↑。货币政策非常有效。', hint:'浮动汇率下，央行印钱→利率下降→钱往外流（去利率高的地方）→本币贬值→出口变便宜→出口增加→经济好转。' },
+      { id:12, type:'choice', chapter:14, question:'"蒙代尔不可能三角"指一国不能同时实现？', options:['A. 高增长、低通胀、充分就业','B. 资本自由流动、固定汇率、独立货币政策','C. 财政盈余、贸易顺差、低利率','D. 高储蓄、高投资、高消费'], answer:1, explanation:'蒙代尔不可能三角：资本自由流动、固定汇率、独立货币政策三者只能选其二。如中国香港选择资本自由流动+固定汇率，放弃独立货币政策。', hint:'"不可能三角"就是"三个里面只能选两个"。想想：如果钱可以自由进出（资本自由流动），汇率又固定，那央行印钱就白印了（资本流出把钱带走），所以独立货币政策就没用了。' },
+      { id:13, type:'choice', chapter:15, question:'以下哪个不是货币政策的工具？', options:['A. 公开市场操作','B. 法定准备金率','C. 政府支出','D. 再贴现率'], answer:2, explanation:'政府支出属于财政政策工具。货币政策三大传统工具是公开市场操作、法定准备金率和再贴现率。', hint:'谁在执行这个政策？央行（管货币政策）还是政府财政部（管财政政策）？"政府支出"是财政部花的钱，不是央行的操作。' },
+      { id:14, type:'choice', chapter:16, question:'索洛模型中，储蓄率提高的长期效果是？', options:['A. 长期增长率提高','B. 稳态人均资本和产出水平提高，但长期增长率不变','C. 人均消费一定提高','D. 技术进步加速'], answer:1, explanation:'索洛模型的核心结论：储蓄率影响稳态水平（k*, y*）但不影响长期增长率。长期增长只能靠技术进步。这是区分"水平效应"和"增长效应"的关键。', hint:'储蓄率提高→更多钱投资→人均资本增加→收入水平提高。但是！这个"提高"是有上限的，到了新的稳态就停了。想一直增长，只有靠技术进步。' },
+      { id:15, type:'choice', chapter:16, question:'长期人均产出增长的最终源泉是什么？', options:['A. 资本积累','B. 人口增长','C. 技术进步','D. 储蓄率提高'], answer:2, explanation:'在索洛模型中，资本积累只有水平效应，技术进步才是长期增长源泉。内生增长理论进一步解释了技术进步如何从研发、教育等活动中内生产生。', hint:'索洛模型最核心的结论：储蓄率↑→收入水平↑（但增长率不变）；资本积累→递减回报→最终停滞。只有技术进步能让经济一直增长。' },
+
+      // ===== 判断题 (8) =====
+      { id:16, type:'tf', chapter:9,  question:'GDP平减指数和CPI衡量的商品范围完全相同。', answer:false, explanation:'不同。GDP平减指数衡量所有国内生产的产品，不含进口品且权重可变；CPI衡量一篮子消费品，含进口品且权重固定。', hint:'CPI是"老百姓视角"（看消费品，含进口手机），GDP平减指数是"国家视角"（只看国内生产的东西）。范围能一样吗？' },
+      { id:17, type:'tf', chapter:10, question:'MPC越大，投资乘数越小。', answer:false, explanation:'错误。乘数k = 1/(1−MPC)，MPC越大→1−MPC越小→k越大。MPC=0.9时乘数高达10。', hint:'MPC=0.8时乘数=5，MPC=0.9时乘数=10。MPC越大，大家越爱花钱，"滚雪球"效应越大，乘数越大。' },
+      { id:18, type:'tf', chapter:11, question:'在流动性陷阱中，货币政策比财政政策更有效。', answer:false, explanation:'错误。流动性陷阱中LM接近水平，货币供给增加不会降低利率（人们愿以货币形式持有任何新增货币），因此货币政策无效。但IS右移的财政政策非常有效。', hint:'流动性陷阱=利率已经低到不能再低了。央行再印钱也没用——人们宁可持有现金也不去买债券。这时只有政府直接花钱才有效。' },
+      { id:19, type:'tf', chapter:12, question:'长期来看，扩张性需求政策只能提高价格水平，不能提高产出。', answer:true, explanation:'正确。AD右移在短期内能提高产出，但长期中工资上涨→SRAS左移→经济回到潜在GDP，只有价格水平永久上升。这就是"货币长期中性"。', hint:'短期：政府印钱→经济变热→产出增加。长期：工人要求涨工资→成本上升→产出回到原来的水平，但物价更高了。印钱只涨物价不涨产出。' },
+      { id:20, type:'tf', chapter:13, question:'滞胀是指经济停滞、高失业与高通货膨胀同时存在的状态。', answer:true, explanation:'正确。滞胀通常由负向供给冲击引起（如石油危机），是20世纪70年代困扰西方国家的主要经济问题，也是对凯恩斯需求管理政策的重大挑战。', hint:'滞 = 经济停滞（不增长），胀 = 通货膨胀（物价涨）。两个同时出现就是"滞胀"。典型的"两头受罪"。' },
+      { id:21, type:'tf', chapter:14, question:'固定汇率制度下，货币政策比财政政策更有效。', answer:false, explanation:'错误。固定汇率下，货币政策受制于汇率目标——货币扩张会导致资本流出和贬值压力，央行被迫干预回笼货币，货币政策无效。而财政政策引致资本流入则需要央行配合投放本币，效果加倍。', hint:'固定汇率下，央行必须维持汇率不变。如果央行印钱→利率下降→钱外流→汇率要跌→央行被迫回收钱→白印了。所以货币政策无效。' },
+      { id:22, type:'tf', chapter:15, question:'自动稳定器是指政府在经济衰退时主动采取的增加支出措施。', answer:false, explanation:'错误。自动稳定器是不需要额外立法的制度设计，如累进税制（经济好时自动多收税）和失业保险（经济差时自动增加支出），而非政府主动采取的措施。后者属于"相机抉择"政策。', hint:'关键词是"自动"——不需要政府开会讨论、不需要新法律。累进税、失业保险这些制度本身就是"自动"调节的。政府主动花钱叫"相机抉择"。' },
+      { id:23, type:'tf', chapter:16, question:'人口增长率上升会使索洛模型中的稳态人均资本增加。', answer:false, explanation:'错误。人口增长率n↑ → 持平投资线(δ+n+g)k变陡 → 稳态k*和y*下降。人口增长会稀释人均资本。', hint:'更多人要分蛋糕（资本），每个人分到的就更少了。人口增长→人均资本下降（资本稀释效应）。' },
+
+      // ===== 简答题 (7) =====
+      { id:24, type:'short', chapter:9,  question:'简述GDP为什么不能完全衡量社会福利。', answer:'GDP不反映：①收入分配（贫富差距）；②环境质量（污染和资源消耗）；③闲暇（工作时间长短）；④非市场活动（家务劳动、志愿服务）；⑤地下经济与非法活动。因此GDP高≠福利高。', hint:'想想GDP只衡量"市场交易"。那什么活动不在市场交易中？（家务劳动、志愿服务）什么没有被交易衡量？（环境污染、贫富差距、幸福程度）' },
+      { id:25, type:'short', chapter:10, question:'简述乘数效应的原理和前提条件。', answer:'原理：初始支出增加→接受者收入增加→按MPC增加消费→下一轮接受者收入增加→消费再增...→无限加总后ΔY=ΔI/(1−MPC)。前提：存在闲置资源（经济未达充分就业），否则只会推高价格而非产出。', hint:'乘数效应像"滚雪球"。但前提是什么？如果工厂已经满负荷了，你还投钱进去，只会涨价不会增产。所以前提是有"闲置资源"。' },
+      { id:26, type:'short', chapter:11, question:'简述IS-LM模型中财政政策的挤出效应及其影响因素。', answer:'财政扩张→IS右移→r↑→私人投资I↓→部分抵消财政扩张效果。影响因素：①LM斜率（越陡挤出越大）；②IS斜率（越平坦挤出越大）；③是否有流动性陷阱（LM水平段挤出为零）；④是否固定汇率（资本流动下挤出机制不同）。', hint:'挤出效应的核心链条：政府借钱→利率涨→企业不借钱投资了。LM越陡（货币需求对利率越不敏感），利率涨得越多，挤出越严重。' },
+      { id:27, type:'short', chapter:12, question:'用AD-AS模型分析石油价格大幅上涨对宏观经济的影响。', answer:'石油涨价→生产成本↑→SRAS左移→均衡点沿AD向左上方移动→产出Y↓（经济停滞）、价格P↑（通胀）→出现滞胀。这是典型的负向供给冲击。政策应对困难：扩张需求→缓解衰退但恶化通胀；紧缩需求→抑制通胀但加深衰退。', hint:'石油涨价影响的是"生产成本"，所以是供给冲击（AS移动，不是AD移动）。AS左移→Y下降+P上升→这就是"滞胀"——政策左右为难。' },
+      { id:28, type:'short', chapter:13, question:'简述短期和长期菲利普斯曲线的区别及政策含义。', answer:'短期PC：π＝πᵉ−β(u−uₙ)，向下倾斜→通胀与失业存在替代关系。长期PC：u＝uₙ，垂直→失业必然回到自然率。政策含义：短期内可用扩张政策以通胀换取低失业；但长期看，持续压低失业只会导致通胀加速，失业终回uₙ（加速主义假说）。', hint:'短期菲利普斯曲线向下倾斜（低失业=高通胀），长期菲利普斯曲线垂直（不管通胀多高，失业回自然率）。政策含义：短期能"用通胀换就业"，长期不行。' },
+      { id:29, type:'short', chapter:14, question:'简述浮动汇率和固定汇率下财政政策与货币政策效果的差异。', answer:'浮动汇率：货币政策有效（M↑→r↓→本币贬值→NX↑→Y↑），财政政策无效（G↑→r↑→本币升值→NX↓→Y回原位）。固定汇率：财政政策有效（G↑→r↑→资本流入→央行投放本币→LM右移→Y↑↑），货币政策无效（M↑→r↓→资本流出→央行回收本币→LM回原位）。根源：蒙代尔不可能三角。', hint:'核心记忆：浮动汇率下货币政策有效（央行说了算），固定汇率下财政政策有效（财政部说了算）。因为固定汇率下央行必须配合汇率目标，货币政策被"绑架"了。' },
+      { id:30, type:'short', chapter:16, question:'简述索洛增长模型的核心结论。', answer:'①稳态条件：s·f(k*)＝(δ+n+g)k*，储蓄正好弥补折旧、人口增长和技术进步。②储蓄率↑→稳态k*和y*↑，但长期增长率不变（水平效应≠增长效应）。③人口增长率↑→稳态k*,y*↓（资本稀释）。④技术进步是长期人均产出增长的唯一源泉。⑤政策启示：鼓励储蓄和投资可提高收入水平，但要持续增长必须推动技术进步。', hint:'索洛模型一句话：储蓄率只能提高收入水平（到了新稳态就停了），技术进步才能让经济一直增长。记住"水平效应vs增长效应"的区分。' }
+    ];
+
+    function qbBuildPool() {
+      QB.pool = QB_ALL.filter(function(q) {
+        if (QB.filter === 'all') return true;
+        return q.type === QB.filter;
+      });
+      // 快速抽题模式：Fisher-Yates 洗牌打乱顺序
+      if (QB.mode === 'random') {
+        for (var i = QB.pool.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = QB.pool[i]; QB.pool[i] = QB.pool[j]; QB.pool[j] = tmp;
+        }
+      }
+      QB.index = 0;
+      QB.answers = {};
+      QB.results = {};
+      QB.submitted = false;
+      QB.started = false;
+    }
+
+    function qbCurrentQ() { return QB.pool[QB.index]; }
+
+    function qbUpdateStats() {
+      var total = QB.pool.length;
+      var answered = Object.keys(QB.answers).length;
+      var correct = Object.values(QB.results).filter(function(v){return v===true;}).length;
+      document.getElementById('qbProgress').textContent = answered + '/' + total;
+      document.getElementById('qbCorrect').textContent = correct;
+      if (total > 0) {
+        document.getElementById('qbScore').textContent = Math.round(correct/total*100) + '%';
+      } else {
+        document.getElementById('qbScore').textContent = '0%';
+      }
+      // 持久化题库进度（按题目id保存，避免随机模式索引错位）
+      try {
+        var aById = {}, rById = {};
+        QB.pool.forEach(function(q, i) {
+          if (QB.answers.hasOwnProperty(i)) aById[q.id] = QB.answers[i];
+          if (QB.results.hasOwnProperty(i)) rById[q.id] = QB.results[i];
+        });
+        localStorage.setItem(LS_QUIZ, JSON.stringify({
+          mode: QB.mode, filter: QB.filter,
+          answersById: aById, resultsById: rById,
+          index: QB.index, started: QB.started, submitted: QB.submitted
+        }));
+      } catch(e) {}
+    }
+
+    function restoreQuizState() {
+      try {
+        var saved = JSON.parse(localStorage.getItem(LS_QUIZ));
+        if (!saved || !saved.started) return;
+        QB.mode = saved.mode || 'practice';
+        QB.filter = saved.filter || 'all';
+        document.querySelectorAll('[data-qmode]').forEach(function(b) {
+          b.classList.toggle('active', b.dataset.qmode === QB.mode);
+        });
+        document.querySelectorAll('[data-qfilter]').forEach(function(b) {
+          b.classList.toggle('active', b.dataset.qfilter === QB.filter);
+        });
+        qbBuildPool();
+        QB.answers = {}; QB.results = {};
+        QB.pool.forEach(function(q, i) {
+          if (saved.answersById && saved.answersById.hasOwnProperty(q.id)) QB.answers[i] = saved.answersById[q.id];
+          if (saved.resultsById && saved.resultsById.hasOwnProperty(q.id)) QB.results[i] = saved.resultsById[q.id];
+        });
+        QB.index = Math.min(saved.index || 0, QB.pool.length - 1);
+        QB.started = !!saved.started;
+        QB.submitted = !!saved.submitted;
+        qbRenderQuestion();
+        qbUpdateStats();
+      } catch(e) {}
+    }
+
+    function qbRenderQuestion() {
+      var q = qbCurrentQ();
+      if (!q) {
+        document.getElementById('qbText').textContent = '请选择题型和模式后开始。';
+        document.getElementById('qbContent').innerHTML = '';
+        document.getElementById('qbFeedback').innerHTML = '';
+        document.getElementById('qbTypeTag').style.display = 'none';
+        return;
+      }
+      document.getElementById('qbTypeTag').style.display = 'inline-block';
+      var chLabel = {9:'第9章',10:'第10章',11:'第11章',12:'第12章',13:'第13章',14:'第14章',15:'第15章',16:'第16章'};
+      document.getElementById('qbText').innerHTML =
+        '<span style="font-size:12px;color:var(--muted);font-weight:600;">' + (chLabel[q.chapter]||'') + '</span><br>' +
+        q.question +
+        ' <button class="jump-btn-inline" onclick="jumpToConcept(' + q.chapter + ')" title="跳转到本章概念精讲">📖 查看概念</button>';
+
+      // 类型标签
+      var tag = document.getElementById('qbTypeTag');
+      tag.className = 'qb-question-type';
+      if (q.type === 'choice') { tag.className += ' qb-type-choice'; tag.textContent = '选择题'; }
+      else if (q.type === 'tf') { tag.className += ' qb-type-tf'; tag.textContent = '判断题'; }
+      else { tag.className += ' qb-type-short'; tag.textContent = '简答题'; }
+
+      // 渲染选项
+      var content = document.getElementById('qbContent');
+      var fb = document.getElementById('qbFeedback');
+      fb.innerHTML = '';
+      var hasAnswered = QB.answers.hasOwnProperty(QB.index);
+
+      if (q.type === 'choice') {
+        var html = '<div class="qb-options">';
+        q.options.forEach(function(opt, i) {
+          var cls = 'qb-option';
+          if (hasAnswered) {
+            if (i === q.answer) cls += ' correct';
+            if (QB.answers[QB.index] === i && i !== q.answer) cls += ' wrong';
+          } else if (QB.answers[QB.index] === i) {
+            cls += ' selected';
+          }
+          var marker = String.fromCharCode(65 + i);
+          html += '<div class="' + cls + '" data-qidx="' + i + '">';
+          html += '<span class="qb-option-marker">' + marker + '</span>';
+          html += '<span>' + opt.substring(2).trim() + '</span>';
+          html += '</div>';
+        });
+        html += '</div>';
+        content.innerHTML = html;
+
+        if (!hasAnswered && QB.started && !QB.submitted) {
+          content.querySelectorAll('.qb-option').forEach(function(el) {
+            el.addEventListener('click', function() {
+              QB.answers[QB.index] = parseInt(this.dataset.qidx);
+              qbRenderQuestion();
+            });
+          });
+        } else if (QB.mode === 'exam' && QB.started) {
+          // 考试模式允许修改答案
+          content.querySelectorAll('.qb-option').forEach(function(el) {
+            el.addEventListener('click', function() {
+              QB.answers[QB.index] = parseInt(this.dataset.qidx);
+              qbRenderQuestion();
+            });
+          });
+        }
+      } else if (q.type === 'tf') {
+        var tfHtml = '<div class="qb-tf-btns">';
+        var tfClsT = 'qb-tf-btn', tfClsF = 'qb-tf-btn';
+        if (hasAnswered) {
+          if (q.answer === true) tfClsT += ' selected-true';
+          else tfClsF += ' selected-false';
+          if (QB.answers[QB.index] === true && q.answer !== true) tfClsT += ' selected-false';
+          if (QB.answers[QB.index] === false && q.answer !== false) tfClsF += ' selected-true';
+        } else if (QB.answers[QB.index] === true) {
+          tfClsT += ' selected-true';
+        } else if (QB.answers[QB.index] === false) {
+          tfClsF += ' selected-false';
+        }
+        tfHtml += '<button class="' + tfClsT + '" data-tf="true">✓ 正确</button>';
+        tfHtml += '<button class="' + tfClsF + '" data-tf="false">✗ 错误</button>';
+        tfHtml += '</div>';
+        content.innerHTML = tfHtml;
+
+        if (!hasAnswered && QB.started && !QB.submitted) {
+          content.querySelectorAll('.qb-tf-btn').forEach(function(el) {
+            el.addEventListener('click', function() {
+              QB.answers[QB.index] = this.dataset.tf === 'true';
+              qbRenderQuestion();
+            });
+          });
+        } else if (QB.mode === 'exam' && QB.started) {
+          content.querySelectorAll('.qb-tf-btn').forEach(function(el) {
+            el.addEventListener('click', function() {
+              QB.answers[QB.index] = this.dataset.tf === 'true';
+              qbRenderQuestion();
+            });
+          });
+        }
+      } else if (q.type === 'short') {
+        content.innerHTML = '<div class="qb-answer-reveal" style="display:none;" id="qbShortAns"><strong>参考答案：</strong><br>' + q.answer + '</div>';
+        if (hasAnswered || (QB.mode==='practice'&&QB.submitted) || (QB.mode==='exam'&&QB.submitted)) {
+          document.getElementById('qbShortAns').style.display = 'block';
+        }
+        if (!hasAnswered && QB.started && !QB.submitted) {
+          content.innerHTML += '<p style="margin-top:10px;color:var(--muted);font-size:13px;">请在心中默答或口述后，查看参考答案进行对照。</p>';
+        }
+      }
+
+      // 提交后显示feedback
+      if (QB.submitted && hasAnswered && q.type !== 'short') {
+        var isCorrect = (QB.answers[QB.index] === q.answer);
+        fb.className = 'qb-feedback ' + (isCorrect ? 'correct' : 'wrong');
+        var fbHtml = (isCorrect ? '<strong>✅ 回答正确！</strong> ' : '<strong>❌ 回答错误。</strong> ') + q.explanation;
+        if (!isCorrect) {
+          fbHtml += '<br><button class="jump-btn-inline" style="margin-top:8px;" onclick="jumpToConcept(' + q.chapter + ')" title="跳转到本章概念精讲">📖 回看本章概念精讲 →</button>';
+        }
+        fb.innerHTML = fbHtml;
+      } else if (QB.submitted && hasAnswered && q.type === 'short') {
+        fb.className = 'qb-feedback correct';
+        fb.innerHTML = '<strong>📝 对照参考答案检查：</strong><br>' + q.answer;
+      }
+
+      // 导航按钮状态
+      document.getElementById('qbPrev').disabled = (QB.index === 0);
+      document.getElementById('qbNext').disabled = (QB.index >= QB.pool.length - 1);
+      var hasCurAnswer = QB.answers.hasOwnProperty(QB.index);
+      if (QB.mode === 'exam' && QB.started) {
+        document.getElementById('qbSubmit').textContent = '交卷并查看成绩';
+        document.getElementById('qbSubmit').disabled = false;
+        document.getElementById('qbSubmit').style.display = '';
+      } else if (QB.started && !QB.submitted && q.type !== 'short') {
+        document.getElementById('qbSubmit').textContent = hasCurAnswer ? '提交答案' : '请先选择答案';
+        document.getElementById('qbSubmit').disabled = !hasCurAnswer;
+      } else if (QB.started && !QB.submitted && q.type === 'short') {
+        document.getElementById('qbSubmit').textContent = '已阅（标记完成）';
+        document.getElementById('qbSubmit').disabled = false;
+      } else if (!QB.started) {
+        document.getElementById('qbSubmit').textContent = '开始答题';
+        document.getElementById('qbSubmit').disabled = false;
+      } else {
+        document.getElementById('qbSubmit').textContent = '已提交';
+        document.getElementById('qbSubmit').disabled = true;
+      }
+
+      // 提示按钮（练习模式下未答对时显示）
+      var existingHint = document.getElementById('qbHintArea');
+      if (existingHint) existingHint.remove();
+      if (QB.started && !QB.submitted && q.hint) {
+        var hintArea = document.createElement('div');
+        hintArea.id = 'qbHintArea';
+        hintArea.style.marginTop = '10px';
+        hintArea.innerHTML = '<button class="quiz-hint-btn" id="qbHintBtn">💡 看提示（不扣分）</button><div class="quiz-hint-content" style="display:none;" id="qbHintText">' + q.hint + '</div>';
+        var qbCard = document.getElementById('qbCard');
+        qbCard.appendChild(hintArea);
+        document.getElementById('qbHintBtn').addEventListener('click', function() {
+          document.getElementById('qbHintText').style.display = 'block';
+          this.disabled = true;
+          this.textContent = '💡 提示已显示';
+          this.style.opacity = '0.6';
+        });
+      }
+    }
+
+    function qbSubmitAnswer() {
+      if (!QB.started) {
+        qbBuildPool();
+        QB.started = true;
+        QB.submitted = false;
+        QB.index = 0;
+        QB.answers = {};
+        QB.results = {};
+        document.getElementById('qbSummary').innerHTML = '';
+        qbRenderQuestion();
+        qbUpdateStats();
+        return;
+      }
+
+      var q = qbCurrentQ();
+      if (!q) return;
+
+      if (QB.mode === 'exam') {
+        // 考试模式：交卷
+        qbGradeExam();
+        qbShowSummary();
+        QB.submitted = true;
+        qbRenderQuestion();
+        qbUpdateStats();
+        document.getElementById('qbSubmit').textContent = '考试结束';
+        document.getElementById('qbSubmit').disabled = true;
+        return;
+      }
+
+      if (QB.submitted) return;
+
+      if (q.type === 'short') {
+        QB.answers[QB.index] = 'viewed';
+        QB.results[QB.index] = true;
+        QB.submitted = true;
+        qbRenderQuestion();
+        qbUpdateStats();
+        if (QB.mode === 'random') { setTimeout(function(){ qbNext(); }, 800); }
+      } else if (QB.answers.hasOwnProperty(QB.index)) {
+        if (QB.mode === 'practice' || QB.mode === 'random') {
+          QB.results[QB.index] = (QB.answers[QB.index] === q.answer);
+          QB.submitted = true;
+          qbRenderQuestion();
+          qbUpdateStats();
+          if (QB.mode === 'random') { setTimeout(function(){ qbNext(); }, 1200); }
+        }
+      }
+    }
+
+    function qbNext() {
+      if (QB.index < QB.pool.length - 1) {
+        QB.index++;
+        QB.submitted = false;
+        if (QB.mode === 'random' && QB.results.hasOwnProperty(QB.index)) {
+          // 随机模式已答过的题跳过
+        }
+        qbRenderQuestion();
+        qbUpdateStats();
+      } else if (QB.mode === 'practice') {
+        // 练习模式最后一题：显示总结
+        if (!QB.submitted) return;
+        qbGradeExam();
+        qbShowSummary();
+      }
+    }
+
+    function qbPrev() {
+      if (QB.index > 0) {
+        QB.index--;
+        QB.submitted = (QB.mode === 'practice' || QB.mode === 'random') ? 
+          QB.results.hasOwnProperty(QB.index) : false;
+        qbRenderQuestion();
+        qbUpdateStats();
+      }
+    }
+
+    function qbGradeExam() {
+      QB.pool.forEach(function(q, i) {
+        if (QB.answers.hasOwnProperty(i)) {
+          if (q.type === 'short') {
+            QB.results[i] = true;
+          } else {
+            QB.results[i] = (QB.answers[i] === q.answer);
+          }
+        } else {
+          QB.results[i] = false;
+        }
+      });
+    }
+
+    function qbShowSummary() {
+      var total = QB.pool.length;
+      var correct = Object.values(QB.results).filter(function(v){return v===true;}).length;
+      var pct = Math.round(correct/total*100);
+      var grade = pct >= 90 ? '优秀' : pct >= 75 ? '良好' : pct >= 60 ? '及格' : '需要加强';
+
+      var html = '<div class="qb-summary">';
+      html += '<div class="qb-summary-card"><div class="qb-summary-num" style="color:var(--primary);">' + total + '</div><div class="qb-summary-label">总题数</div></div>';
+      html += '<div class="qb-summary-card"><div class="qb-summary-num" style="color:#16a34a;">' + correct + '</div><div class="qb-summary-label">正确</div></div>';
+      html += '<div class="qb-summary-card"><div class="qb-summary-num" style="color:#dc2626;">' + (total-correct) + '</div><div class="qb-summary-label">错误</div></div>';
+      html += '<div class="qb-summary-card"><div class="qb-summary-num" style="color:#f59e0b;">' + pct + '%</div><div class="qb-summary-label">得分率 · ' + grade + '</div></div>';
+      html += '</div>';
+      html += '<div class="info" style="margin-top:14px;">';
+      if (pct >= 90) html += '🎉 非常出色！你对宏观经济学框架掌握得很好，可以自信应考。';
+      else if (pct >= 75) html += '👍 基础扎实。建议回顾错题涉及的知识点，特别注意模型之间的逻辑关系。';
+      else if (pct >= 60) html += '📖 基本过关但仍有薄弱环节。建议回到上方"概念精讲"区，重点补习错题相关的章节。';
+      else html += '📚 基础还需加强。建议按顺序从上方的"概念精讲"逐章复习，重点掌握三大模型（收入-支出、IS-LM、AD-AS）和政策对比表。';
+      html += '</div>';
+
+      // 错题列表
+      var wrongList = [];
+      QB.pool.forEach(function(q, i) {
+        if (QB.results[i] === false) {
+          wrongList.push(q);
+        }
+      });
+      if (wrongList.length > 0) {
+        html += '<h3 style="margin-top:20px;">📋 错题回顾</h3>';
+        wrongList.forEach(function(q) {
+          html += '<div class="qb-card" style="margin-bottom:10px;padding:14px;">';
+          html += '<strong>' + q.question + '</strong>';
+          if (q.type === 'choice') html += '<br><span style="color:#16a34a;">正确答案：' + String.fromCharCode(65+q.answer) + '</span>';
+          if (q.type === 'tf') html += '<br><span style="color:#16a34a;">正确答案：' + (q.answer?'正确':'错误') + '</span>';
+          html += '<br><span style="color:var(--muted);font-size:13px;">' + q.explanation + '</span>';
+          html += '<br><button class="jump-btn-inline" style="margin-top:8px;" onclick="jumpToConcept(' + q.chapter + ')">📖 查看本章概念精讲 →</button>';
+          html += '</div>';
+        });
+      }
+      document.getElementById('qbSummary').innerHTML = html;
+    }
+
+    function qbRestartAll() {
+      QB.started = false;
+      QB.submitted = false;
+      QB.index = 0;
+      QB.answers = {};
+      QB.results = {};
+      qbBuildPool();
+      document.getElementById('qbSummary').innerHTML = '';
+      document.getElementById('qbText').textContent = '请选择题型和模式，点击"开始答题"按钮。';
+      document.getElementById('qbContent').innerHTML = '';
+      document.getElementById('qbFeedback').innerHTML = '';
+      document.getElementById('qbTypeTag').style.display = 'none';
+      document.getElementById('qbSubmit').textContent = '开始答题';
+      document.getElementById('qbSubmit').disabled = false;
+      document.getElementById('qbPrev').disabled = true;
+      document.getElementById('qbNext').disabled = true;
+      qbUpdateStats();
+    }
+
+    // 事件绑定
+    document.getElementById('qbSubmit').addEventListener('click', function() {
+      qbSubmitAnswer();
+    });
+
+    document.getElementById('qbPrev').addEventListener('click', qbPrev);
+    document.getElementById('qbNext').addEventListener('click', qbNext);
+
+    document.getElementById('qbRestart').addEventListener('click', qbRestartAll);
+
+    // 模式切换
+    document.querySelectorAll('[data-qmode]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('[data-qmode]').forEach(function(b){b.classList.remove('active');});
+        this.classList.add('active');
+        QB.mode = this.dataset.qmode;
+        qbRestartAll();
+      });
+    });
+
+    // 题型筛选
+    document.querySelectorAll('[data-qfilter]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('[data-qfilter]').forEach(function(b){b.classList.remove('active');});
+        this.classList.add('active');
+        QB.filter = this.dataset.qfilter;
+        qbRestartAll();
+      });
+    });
+
+    // 初始化（优先恢复已保存的进度）
+    restoreQuizState();
+    if (!QB.started) {
+      qbBuildPool();
+      qbUpdateStats();
+    }
+
+    /* ============ 高级交互模型：SVG 工具函数 ============ */
+    const SVGNS = 'http://www.w3.org/2000/svg';
+    function setLine(node, x1, y1, x2, y2) {
+      node.setAttribute('x1', x1);
+      node.setAttribute('y1', y1);
+      node.setAttribute('x2', x2);
+      node.setAttribute('y2', y2);
+    }
+    function setPos(node, x, y) {
+      node.setAttribute('cx', x);
+      node.setAttribute('cy', y);
+    }
+    function setText(node, x, y, t) {
+      node.setAttribute('x', x);
+      node.setAttribute('y', y);
+      if (t !== undefined) node.textContent = t;
+    }
+
+    function drawAxes(p, opts) {
+      var isDark = document.body.classList.contains('dark');
+      var gridColor = isDark ? '#334155' : '#e5e7eb';
+      var tickColor = isDark ? '#9ca3af' : '#6b7280';
+      var grid = document.getElementById(opts.gridId);
+      var tick = document.getElementById(opts.tickId);
+      if (grid) grid.innerHTML = '';
+      if (tick) tick.innerHTML = '';
+      for (var x = opts.xStart; x <= p.xDom[1] + 1e-9; x += opts.xStep) {
+        var px = p.X(x);
+        if (grid) {
+          var ln = document.createElementNS(SVGNS, 'line');
+          ln.setAttribute('x1', px); ln.setAttribute('y1', p.m.t);
+          ln.setAttribute('x2', px); ln.setAttribute('y2', p.m.t + p.ph);
+          ln.setAttribute('stroke', gridColor); ln.setAttribute('stroke-width', '1');
+          grid.appendChild(ln);
+        }
+        if (tick) {
+          var tx = document.createElementNS(SVGNS, 'text');
+          tx.setAttribute('x', px); tx.setAttribute('y', p.m.t + p.ph + 18);
+          tx.setAttribute('fill', tickColor); tx.setAttribute('font-size', '11');
+          tx.setAttribute('text-anchor', 'middle');
+          tx.textContent = opts.xfmt(x);
+          tick.appendChild(tx);
+        }
+      }
+      for (var y = opts.yStart; y <= p.yDom[1] + 1e-9; y += opts.yStep) {
+        var py = p.Y(y);
+        if (grid) {
+          var ln2 = document.createElementNS(SVGNS, 'line');
+          ln2.setAttribute('x1', p.m.l); ln2.setAttribute('y1', py);
+          ln2.setAttribute('x2', p.m.l + p.pw); ln2.setAttribute('y2', py);
+          ln2.setAttribute('stroke', gridColor); ln2.setAttribute('stroke-width', '1');
+          grid.appendChild(ln2);
+        }
+        if (tick) {
+          var ty = document.createElementNS(SVGNS, 'text');
+          ty.setAttribute('x', p.m.l - 8); ty.setAttribute('y', py + 4);
+          ty.setAttribute('fill', tickColor); ty.setAttribute('font-size', '11');
+          ty.setAttribute('text-anchor', 'end');
+          ty.textContent = opts.yfmt(y);
+          tick.appendChild(ty);
+        }
+      }
+      var xAxis = document.getElementById(opts.xAxisId);
+      var yAxis = document.getElementById(opts.yAxisId);
+      if (xAxis) { setLine(xAxis, p.m.l, p.m.t + p.ph, p.m.l + p.pw, p.m.t + p.ph); xAxis.setAttribute('stroke', isDark ? '#475569' : '#5a6b88'); }
+      if (yAxis) { setLine(yAxis, p.m.l, p.m.t, p.m.l, p.m.t + p.ph); yAxis.setAttribute('stroke', isDark ? '#475569' : '#5a6b88'); }
+      var xLab = document.getElementById(opts.xLabelId);
+      var yLab = document.getElementById(opts.yLabelId);
+      if (xLab) { xLab.setAttribute('x', p.m.l + p.pw - 90); xLab.setAttribute('y', p.m.t + p.ph + 38); xLab.setAttribute('fill', tickColor); }
+      if (yLab) { yLab.setAttribute('x', -(p.m.t + 50)); yLab.setAttribute('y', 18); yLab.setAttribute('fill', tickColor); }
+    }
+
+    /* ============ 跨模块跳转函数 ============ */
+    function jumpToModel(modelName) {
+      var section = document.getElementById('advanced-models');
+      if (!section) return;
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(function() {
+        document.querySelectorAll('.model-tab').forEach(function(t) { t.classList.remove('active'); });
+        document.querySelectorAll('.model-panel').forEach(function(p) { p.classList.remove('active'); });
+        var tab = document.querySelector('.model-tab[data-model="' + modelName + '"]');
+        var panel = document.getElementById('panel-' + modelName);
+        if (tab) tab.classList.add('active');
+        if (panel) panel.classList.add('active');
+      }, 300);
+    }
+
+    function jumpToConcept(chapter) {
+      var target = document.getElementById('concept-ch' + chapter);
+      if (!target) return;
+      if (!target.classList.contains('active')) {
+        target.classList.add('active');
+      }
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ============ 高级交互模型标签切换 ============ */
+    document.querySelectorAll('.model-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.model-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.model-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        const model = tab.dataset.model;
+        const panel = document.getElementById('panel-' + model);
+        if (panel) panel.classList.add('active');
+      });
+    });
+
+    /* ============ 菲利普斯曲线交互 ============ */
+    const ph = {pie:3, un:5, beta:1.5, u:5, animating:false};
+    const PH = {
+      svg: document.getElementById('phSvg'),
+      xDom: [0, 12], yDom: [-2, 12],
+      m: {l:55, r:30, t:25, b:50}
+    };
+    PH.pw = 600 - PH.m.l - PH.m.r;
+    PH.ph = 440 - PH.m.t - PH.m.b;
+    PH.X = (x) => PH.m.l + (x - PH.xDom[0])/(PH.xDom[1]-PH.xDom[0]) * PH.pw;
+    PH.Y = (y) => PH.m.t + (PH.yDom[1] - y)/(PH.yDom[1]-PH.yDom[0]) * PH.ph;
+
+    function phPi(u) { return ph.pie - ph.beta * (u - ph.un); }
+
+    function phClipU() {
+      const ymax = PH.yDom[1], ymin = PH.yDom[0];
+      let uLow = ph.un - (ymax - ph.pie)/ph.beta;
+      let uHigh = ph.un - (ymin - ph.pie)/ph.beta;
+      uLow = Math.max(PH.xDom[0], uLow);
+      uHigh = Math.min(PH.xDom[1], uHigh);
+      return [uLow, uHigh];
+    }
+
+    function phDraw() {
+      const [uL, uH] = phClipU();
+      const srpc = document.getElementById('srpc');
+      const srpcLabel = document.getElementById('srpcLabel');
+      const lrpc = document.getElementById('lrpc');
+      const lrpcLabel = document.getElementById('lrpcLabel');
+      const phNat = document.getElementById('phNat');
+      const phCur = document.getElementById('phCur');
+      const phCurLabel = document.getElementById('phCurLabel');
+      const phRead = document.getElementById('phRead');
+
+      setLine(srpc, PH.X(uL), PH.Y(phPi(uL)), PH.X(uH), PH.Y(phPi(uH)));
+      setText(srpcLabel, PH.X(uL)+6, PH.Y(phPi(uL))+(phPi(uL)>9?16:-8));
+
+      setLine(lrpc, PH.X(ph.un), PH.m.t, PH.X(ph.un), PH.m.t+PH.ph);
+      setText(lrpcLabel, PH.X(ph.un)+6, PH.m.t+14);
+
+      setPos(phNat, PH.X(ph.un), PH.Y(ph.pie));
+
+      const cu = Math.min(uH, Math.max(uL, ph.u));
+      ph.u = cu;
+      const cp = phPi(cu);
+      setPos(phCur, PH.X(cu), PH.Y(cp));
+      setText(phCurLabel, PH.X(cu)+12, PH.Y(cp)-10, `(${cu.toFixed(1)}, ${cp.toFixed(1)})`);
+
+      const gap = cp - ph.pie;
+      phRead.innerHTML =
+        `当前点：失业率 <b>${cu.toFixed(1)}%</b>，通胀 <b>${cp.toFixed(1)}%</b><br>` +
+        `自然失业率 uₙ = <b>${ph.un.toFixed(1)}%</b>，预期通胀 πᵉ = <b>${ph.pie.toFixed(1)}%</b><br>` +
+        (Math.abs(cu - ph.un) < 0.15
+          ? `<span style="color:#16a34a;font-weight:700;">长期均衡</span> 失业处于自然率`
+          : (cu < ph.un
+            ? `<span style="color:#dc2626;font-weight:700;">过热</span> 失业低于自然率，通胀高出预期 ${gap.toFixed(1)}pt → 预期将上调`
+            : `<span style="color:#2563eb;font-weight:700;">萧条</span> 失业高于自然率，通胀低于预期 ${(-gap).toFixed(1)}pt → 预期将下调`));
+    }
+
+    function phUpdLabels() {
+      document.getElementById('vPie').textContent = ph.pie.toFixed(1) + '%';
+      document.getElementById('vUn').textContent = ph.un.toFixed(1) + '%';
+      document.getElementById('vBeta').textContent = ph.beta.toFixed(1);
+    }
+
+    document.getElementById('sPie').addEventListener('input', e => {
+      if (ph.animating) return;
+      ph.pie = +e.target.value;
+      phUpdLabels();
+      phDraw();
+    });
+
+    document.getElementById('sUn').addEventListener('input', e => {
+      if (ph.animating) return;
+      ph.un = +e.target.value;
+      if (ph.u === undefined) ph.u = ph.un;
+      phUpdLabels();
+      phDraw();
+    });
+
+    document.getElementById('sBeta').addEventListener('input', e => {
+      if (ph.animating) return;
+      ph.beta = +e.target.value;
+      phUpdLabels();
+      phDraw();
+    });
+
+    document.getElementById('phReset').addEventListener('click', () => {
+      ph.pie = 3;
+      ph.un = 5;
+      ph.beta = 1.5;
+      ph.u = 5;
+      ph.animating = false;
+      document.getElementById('sPie').value = 3;
+      document.getElementById('sUn').value = 5;
+      document.getElementById('sBeta').value = 1.5;
+      document.getElementById('phTrail').innerHTML = '';
+      phUpdLabels();
+      phDraw();
+    });
+
+    // 拖动当前点
+    (function() {
+      const cur = document.getElementById('phCur');
+      let drag = false;
+      function pt(evt) {
+        const r = PH.svg.getBoundingClientRect();
+        const x = (evt.touches ? evt.touches[0].clientX : evt.clientX);
+        const sx = (x - r.left) / r.width * 600;
+        let u = PH.xDom[0] + (sx - PH.m.l) / PH.pw * (PH.xDom[1] - PH.xDom[0]);
+        ph.u = u;
+        phDraw();
+      }
+      cur.addEventListener('mousedown', e => {
+        if (ph.animating) return;
+        drag = true;
+        cur.style.cursor = 'grabbing';
+      });
+      window.addEventListener('mousemove', e => { if (drag) pt(e); });
+      window.addEventListener('mouseup', () => { drag = false; cur.style.cursor = 'grab'; });
+      cur.addEventListener('touchstart', e => {
+        if (ph.animating) return;
+        drag = true;
+        e.preventDefault();
+      }, {passive: false});
+      window.addEventListener('touchmove', e => {
+        if (drag) { pt(e); e.preventDefault(); }
+      }, {passive: false});
+      window.addEventListener('touchend', () => { drag = false; });
+    })();
+
+    // 预期螺旋演示
+    function addTrail(u, pi) {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', PH.X(u));
+      c.setAttribute('cy', PH.Y(pi));
+      c.setAttribute('r', '3.5');
+      c.setAttribute('fill', '#f59e0b');
+      c.setAttribute('opacity', '0.85');
+      document.getElementById('phTrail').appendChild(c);
+    }
+
+    document.getElementById('phAnim').addEventListener('click', () => {
+      if (ph.animating) return;
+      ph.animating = true;
+      document.getElementById('phAnim').disabled = true;
+      document.getElementById('phTrail').innerHTML = '';
+      ph.pie = 2;
+      ph.un = 5;
+      ph.beta = 1.5;
+      document.getElementById('sPie').value = 2;
+      document.getElementById('sUn').value = 5;
+      document.getElementById('sBeta').value = 1.5;
+      ph.u = 5;
+      phUpdLabels();
+      phDraw();
+      const target = ph.un - 2;
+      let cycle = 0;
+      const maxCycles = 4;
+      function step() {
+        ph.u = target;
+        phDraw();
+        addTrail(ph.u, phPi(ph.u));
+        setTimeout(() => {
+          ph.pie = phPi(target);
+          document.getElementById('sPie').value = Math.min(8, ph.pie);
+          ph.u = ph.un;
+          phUpdLabels();
+          phDraw();
+          addTrail(ph.un, ph.pie);
+          cycle++;
+          if (cycle < maxCycles && ph.pie < 7) {
+            setTimeout(step, 750);
+          } else {
+            ph.animating = false;
+            document.getElementById('phAnim').disabled = false;
+            document.getElementById('phRead').innerHTML += `<br><span style="color:#f59e0b;font-weight:700;">结论</span> 反复压低失业只换来不断攀升的通胀，失业终回 uₙ —— 沿 LRPC 垂直上行（加速主义）。`;
+          }
+        }, 700);
+      }
+      step();
+    });
+
+    phUpdLabels();
+    drawAxes(PH, {gridId:'phGrid', tickId:'phTicks', xAxisId:'phXAxis', yAxisId:'phYAxis',
+      xLabelId:'phXLabel', yLabelId:'phYLabel', xStart:0, xStep:2, yStart:-2, yStep:2,
+      xfmt:function(v){return v.toFixed(0);}, yfmt:function(v){return v.toFixed(0);}});
+    phDraw();
+
+    /* ============ 蒙代尔-弗莱明交互 ============ */
+    const RSTAR = 5;
+    const IS_SLOPE = 0.1, LM_SLOPE = 0.1;
+    const mf = {regime:'float', isInt:10, lmShift:0, anim:null};
+    const MF = {
+      svg: document.getElementById('mfSvg'),
+      xDom: [20, 90], yDom: [0, 10],
+      m: {l:55, r:30, t:25, b:50}
+    };
+    MF.pw = 600 - MF.m.l - MF.m.r;
+    MF.ph = 440 - MF.m.t - MF.m.b;
+    MF.X = (x) => MF.m.l + (x - MF.xDom[0])/(MF.xDom[1]-MF.xDom[0]) * MF.pw;
+    MF.Y = (y) => MF.m.t + (MF.yDom[1] - y)/(MF.yDom[1]-MF.yDom[0]) * MF.ph;
+
+    function isR(Y) { return mf.isInt - IS_SLOPE * Y; }
+    function lmR(Y) { return LM_SLOPE * Y - mf.lmShift; }
+    function eqY() { return (mf.isInt + mf.lmShift) / (IS_SLOPE + LM_SLOPE); }
+
+    function mfDrawLine(node, fn) {
+      const y0 = MF.xDom[0], y1 = MF.xDom[1];
+      setLine(node, MF.X(y0), MF.Y(fn(y0)), MF.X(y1), MF.Y(fn(y1)));
+    }
+
+    function mfDraw() {
+      mfDrawLine(document.getElementById('isLine'), isR);
+      mfDrawLine(document.getElementById('lmLine'), lmR);
+      setLine(document.getElementById('bpLine'), MF.m.l, MF.Y(RSTAR), MF.m.l+MF.pw, MF.Y(RSTAR));
+      setText(document.getElementById('bpLabel'), MF.m.l+MF.pw-90, MF.Y(RSTAR)-8);
+
+      setText(document.getElementById('isLabel'), MF.X(MF.xDom[1])-22, MF.Y(isR(MF.xDom[1]))+(isR(MF.xDom[1])<1?-6:16));
+      setText(document.getElementById('lmLabel'), MF.X(MF.xDom[1])-26, MF.Y(lmR(MF.xDom[1]))-8);
+
+      const Y = eqY(), r = lmR(Y);
+      setPos(document.getElementById('mfEq'), MF.X(Y), MF.Y(r));
+      setText(document.getElementById('mfEqLabel'), MF.X(Y)+10, MF.Y(r)-10, `(${Y.toFixed(0)}, ${r.toFixed(1)})`);
+      setLine(document.getElementById('eqDropX'), MF.X(Y), MF.Y(r), MF.X(Y), MF.m.t+MF.ph);
+      setLine(document.getElementById('eqDropY'), MF.m.l, MF.Y(r), MF.X(Y), MF.Y(r));
+    }
+
+    function mfTween(target, dur, onDone) {
+      cancelAnimationFrame(mf.anim);
+      const s = {i:mf.isInt, l:mf.lmShift}, t0 = performance.now();
+      function frame(now) {
+        let k = Math.min(1, (now-t0)/dur);
+        k = k < .5 ? 2*k*k : 1 - Math.pow(-2*k+2, 2)/2;
+        mf.isInt = s.i + (target.isInt - s.i) * k;
+        mf.lmShift = s.l + (target.lmShift - s.l) * k;
+        mfDraw();
+        if (k < 1) mf.anim = requestAnimationFrame(frame);
+        else if (onDone) onDone();
+      }
+      mf.anim = requestAnimationFrame(frame);
+    }
+
+    function setRead(html) { document.getElementById('mfRead').innerHTML = html; }
+
+    function lockBtns(b) {
+      document.getElementById('fiscal').disabled = b;
+      document.getElementById('monetary').disabled = b;
+    }
+
+    document.getElementById('fiscal').addEventListener('click', () => {
+      lockBtns(true);
+      if (mf.regime === 'float') {
+        setRead(`<span style="color:#2563eb;font-weight:700;">浮动·财政</span> G↑ → IS 右移，国内 r 升至 r* 之上…`);
+        mfTween({isInt:12, lmShift:0}, 700, () => {
+          setRead(`<span style="color:#2563eb;font-weight:700;">浮动·财政</span> r>r* 引来资本流入 → 本币<b>升值</b> → 净出口 NX↓ → IS 被挤回原位。<br><span style="color:#dc2626;font-weight:700;">结论</span> 产出 Y <b>不变</b>，财政政策<b>失效</b>。`);
+          mfTween({isInt:10, lmShift:0}, 900, () => lockBtns(false));
+        });
+      } else {
+        setRead(`<span style="color:#2563eb;font-weight:700;">固定·财政</span> G↑ → IS 右移，r 升至 r* 之上，资本流入…`);
+        mfTween({isInt:12, lmShift:0}, 700, () => {
+          setRead(`<span style="color:#2563eb;font-weight:700;">固定·财政</span> 为守住汇率，央行买入外汇投放本币 → M↑ → LM 右移，r 回到 r*。<br><span style="color:#16a34a;font-weight:700;">结论</span> 产出 Y 从 50 升到 <b>70</b>，财政政策<b>非常有效</b>。`);
+          mfTween({isInt:12, lmShift:2}, 900, () => lockBtns(false));
+        });
+      }
+    });
+
+    document.getElementById('monetary').addEventListener('click', () => {
+      lockBtns(true);
+      if (mf.regime === 'float') {
+        setRead(`<span style="color:#f59e0b;font-weight:700;">浮动·货币</span> M↑ → LM 右移，国内 r 跌到 r* 之下…`);
+        mfTween({isInt:10, lmShift:2}, 700, () => {
+          setRead(`<span style="color:#f59e0b;font-weight:700;">浮动·货币</span> r<r* 引发资本流出 → 本币<b>贬值</b> → 净出口 NX↑ → IS 右移，r 回到 r*。<br><span style="color:#16a34a;font-weight:700;">结论</span> 产出 Y 从 50 升到 <b>70</b>，货币政策<b>非常有效</b>。`);
+          mfTween({isInt:12, lmShift:2}, 900, () => lockBtns(false));
+        });
+      } else {
+        setRead(`<span style="color:#f59e0b;font-weight:700;">固定·货币</span> M↑ → LM 右移，r 跌到 r* 之下，资本流出…`);
+        mfTween({isInt:10, lmShift:2}, 700, () => {
+          setRead(`<span style="color:#f59e0b;font-weight:700;">固定·货币</span> 为守住汇率，央行卖出外汇回收本币 → M↓ → LM 被推回原位。<br><span style="color:#dc2626;font-weight:700;">结论</span> 产出 Y <b>不变</b>，货币政策<b>失效</b>。`);
+          mfTween({isInt:10, lmShift:0}, 900, () => lockBtns(false));
+        });
+      }
+    });
+
+    document.getElementById('mfReset').addEventListener('click', () => {
+      cancelAnimationFrame(mf.anim);
+      lockBtns(false);
+      mf.isInt = 10;
+      mf.lmShift = 0;
+      mfDraw();
+      setRead(initialRead());
+    });
+
+    document.querySelectorAll('#regimeSeg button').forEach(b => {
+      b.addEventListener('click', () => {
+        document.querySelectorAll('#regimeSeg button').forEach(x => {
+          x.style.background = 'var(--bg)';
+          x.style.color = 'var(--text)';
+        });
+        b.style.background = 'var(--primary)';
+        b.style.color = '#fff';
+        mf.regime = b.dataset.reg;
+        cancelAnimationFrame(mf.anim);
+        lockBtns(false);
+        mf.isInt = 10;
+        mf.lmShift = 0;
+        mfDraw();
+        setRead(initialRead());
+      });
+    });
+
+    function initialRead() {
+      const r = mf.regime === 'float' ? '浮动汇率' : '固定汇率';
+      const eff = mf.regime === 'float'
+        ? '货币政策<b style="color:#16a34a;">有效</b>，财政政策<b style="color:#dc2626;">失效</b>'
+        : '财政政策<b style="color:#16a34a;">有效</b>，货币政策<b style="color:#dc2626;">失效</b>';
+      return `<span style="color:#f59e0b;font-weight:700;">${r}</span> 当前均衡 (Y=50, r=r*=5)。<br>理论预测：${eff}。点上方按钮施加冲击观察曲线移动。`;
+    }
+
+    drawAxes(MF, {gridId:'mfGrid', tickId:'mfTicks', xAxisId:'mfXAxis', yAxisId:'mfYAxis',
+      xLabelId:'mfXLabel', yLabelId:'mfYLabel', xStart:20, xStep:10, yStart:0, yStep:2,
+      xfmt:function(v){return v.toFixed(0);}, yfmt:function(v){return v.toFixed(0);}});
+    mfDraw();
+    setRead(initialRead());
+
+    /* 暗色模式坐标轴重绘逻辑已合并至脚本末尾统一 handler */
+
+    /* ================================================== */
+    /* ============ ③ 索洛增长模型 ============ */
+    /* ================================================== */
+    var SO = { svg: document.getElementById('solowSvg'), xDom:[0,100], yDom:[0,50], m:{l:55,r:30,t:25,b:50} };
+    SO.pw = 600 - SO.m.l - SO.m.r; SO.ph = 440 - SO.m.t - SO.m.b;
+    SO.X = function(x){return SO.m.l + (x - SO.xDom[0])/(SO.xDom[1]-SO.xDom[0]) * SO.pw;};
+    SO.Y = function(y){return SO.m.t + (SO.yDom[1] - y)/(SO.yDom[1]-SO.yDom[0]) * SO.ph;};
+    var solow = {s:0.3, delta:0.1, A:2.0, n:0.02};
+
+    function solowProd(k){ return solow.A * Math.sqrt(k); }
+    function solowSav(k){ return solow.s * solowProd(k); }
+    function solowDep(k){ return (solow.delta + solow.n) * k; }
+
+    function solowKStar(){
+      // s*A*sqrt(k) = (delta+n)*k  =>  k = (s*A/(delta+n))^2
+      var r = solow.s * solow.A / (solow.delta + solow.n);
+      return Math.min(SO.xDom[1], r * r);
+    }
+
+    function solowDraw(){
+      var prodPath = '', savPath = '';
+      for (var k = 0; k <= SO.xDom[1]; k += 2) {
+        var y1 = solowProd(k), y2 = solowSav(k);
+        var px = SO.X(k);
+        if (k === 0) { prodPath = 'M' + px + ',' + SO.Y(y1); savPath = 'M' + px + ',' + SO.Y(y2); }
+        else { prodPath += ' L' + px + ',' + SO.Y(y1); savPath += ' L' + px + ',' + SO.Y(y2); }
+      }
+      document.getElementById('prodCurve').setAttribute('d', prodPath);
+      document.getElementById('savCurve').setAttribute('d', savPath);
+
+      // 折旧线
+      setLine(document.getElementById('depLine'), SO.X(0), SO.Y(0), SO.X(SO.xDom[1]), SO.Y(solowDep(SO.xDom[1])));
+
+      // 标签
+      setText(document.getElementById('prodLabel'), SO.X(SO.xDom[1]-5), SO.Y(solowProd(SO.xDom[1]-5))-8);
+      setText(document.getElementById('savLabel'), SO.X(SO.xDom[1]-12), SO.Y(solowSav(SO.xDom[1]-12))-8);
+      setText(document.getElementById('depLabel'), SO.X(SO.xDom[1]-8), SO.Y(solowDep(SO.xDom[1]-8))-8);
+
+      // 稳态
+      var ks = solowKStar();
+      var ys = solowProd(ks);
+      setLine(document.getElementById('kStarLine'), SO.X(ks), SO.Y(0), SO.X(ks), SO.Y(ys));
+      setLine(document.getElementById('yStarLine'), SO.X(0), SO.Y(ys), SO.X(ks), SO.Y(ys));
+      setPos(document.getElementById('kStarDot'), SO.X(ks), SO.Y(solowSav(ks)));
+      setText(document.getElementById('kStarLabel'), SO.X(ks)+8, SO.Y(solowSav(ks))-10, 'k*='+ks.toFixed(1));
+
+      // 读数
+      var cons = ys - solowSav(ks);
+      document.getElementById('solowRead').innerHTML =
+        '<b>稳态值：</b><br>' +
+        'k* = <b>' + ks.toFixed(1) + '</b>（人均资本）<br>' +
+        'y* = <b>' + ys.toFixed(1) + '</b>（人均产出）<br>' +
+        's·y* = <b>' + solowSav(ks).toFixed(1) + '</b>（投资=持平投资 (δ+n)k*）<br>' +
+        'c* = y* − s·y* = <b>' + cons.toFixed(1) + '</b>（人均消费）<br>' +
+        '<span style="color:#6b7280;font-size:12px;">↑s → k*↑、y*↑；↑n → k*↓、y*↓（资本稀释）；长期增长只能靠技术进步</span>';
+    }
+
+    function solowUpdLabels(){
+      document.getElementById('vSolowS').textContent = solow.s.toFixed(2);
+      document.getElementById('vSolowD').textContent = solow.delta.toFixed(2);
+      document.getElementById('vSolowA').textContent = solow.A.toFixed(1);
+      document.getElementById('vSolowN').textContent = solow.n.toFixed(3);
+    }
+
+    document.getElementById('sSolowS').addEventListener('input', function(e){ solow.s = +e.target.value; solowUpdLabels(); solowDraw(); });
+    document.getElementById('sSolowD').addEventListener('input', function(e){ solow.delta = +e.target.value; solowUpdLabels(); solowDraw(); });
+    document.getElementById('sSolowA').addEventListener('input', function(e){ solow.A = +e.target.value; solowUpdLabels(); solowDraw(); });
+    document.getElementById('sSolowN').addEventListener('input', function(e){ solow.n = +e.target.value; solowUpdLabels(); solowDraw(); });
+    document.getElementById('solowReset').addEventListener('click', function(){
+      solow.s=0.3; solow.delta=0.1; solow.A=2.0; solow.n=0.02;
+      document.getElementById('sSolowS').value=0.3; document.getElementById('sSolowD').value=0.1; document.getElementById('sSolowA').value=2; document.getElementById('sSolowN').value=0.02;
+      solowUpdLabels(); solowDraw();
+    });
+
+    drawAxes(SO, {gridId:'solowGrid', tickId:'solowTicks', xAxisId:'solowXAxis', yAxisId:'solowYAxis',
+      xLabelId:'solowXLabel', yLabelId:'solowYLabel', xStart:0, xStep:20, yStart:0, yStep:10,
+      xfmt:function(v){return v.toFixed(0);}, yfmt:function(v){return v.toFixed(0);}});
+    solowUpdLabels();
+    solowDraw();
+
+    /* ================================================== */
+    /* ============ ④ 货币市场均衡 ============ */
+    /* ================================================== */
+    var MM = { svg: document.getElementById('moneySvg'), xDom:[0,800], yDom:[0,12], m:{l:55,r:30,t:25,b:50} };
+    MM.pw = 600 - MM.m.l - MM.m.r; MM.ph = 440 - MM.m.t - MM.m.b;
+    MM.X = function(x){return MM.m.l + (x - MM.xDom[0])/(MM.xDom[1]-MM.xDom[0]) * MM.pw;};
+    MM.Y = function(y){return MM.m.t + (MM.yDom[1] - y)/(MM.yDom[1]-MM.yDom[0]) * MM.ph;};
+    var money = {M:500, Y:100, h:0.7, k:0.085};
+
+    function moneyMdR(){ return money.k * money.Y / money.h; }  // r at M=0
+    function moneyEqR(){ return Math.max(0, moneyMdR() - money.M / (money.h * 100)); }
+
+    function moneyDraw(){
+      // 货币需求 L(r): r = kY/h - M/(h*100), 作为r的函数 M = (kY - h*r)*100
+      // 在图上 M为x轴, r为y轴, 需求曲线: r = kY/h - M/(h*100)
+      var r0 = moneyMdR();
+      var rEnd = 0;
+      var mEnd = money.k * money.Y * 100; // M at r=0
+      setLine(document.getElementById('mdCurve'), MM.X(0), MM.Y(r0), MM.X(Math.min(mEnd, MM.xDom[1])), MM.Y(rEnd));
+      setText(document.getElementById('mdLabel'), MM.X(0)+8, MM.Y(r0)-8);
+
+      // 货币供给 (垂直线)
+      setLine(document.getElementById('msCurve'), MM.X(money.M), MM.Y(0), MM.X(money.M), MM.Y(MM.yDom[1]));
+      setText(document.getElementById('msLabel'), MM.X(money.M)+6, MM.Y(MM.yDom[1]-1));
+
+      // 均衡
+      var er = moneyEqR();
+      setPos(document.getElementById('moneyEq'), MM.X(money.M), MM.Y(er));
+      setText(document.getElementById('moneyEqLabel'), MM.X(money.M)+10, MM.Y(er)-10, '(' + money.M + ', ' + er.toFixed(1) + '%)');
+      setLine(document.getElementById('moneyEqDropX'), MM.X(money.M), MM.Y(er), MM.X(money.M), MM.Y(0));
+      setLine(document.getElementById('moneyEqDropY'), MM.X(0), MM.Y(er), MM.X(money.M), MM.Y(er));
+
+      document.getElementById('moneyRead').innerHTML =
+        '当前均衡：<br>' +
+        '货币供给 M/P = <b>' + money.M + '</b><br>' +
+        '均衡利率 r = <b>' + er.toFixed(2) + '%</b><br>' +
+        '收入 Y = <b>' + money.Y + '</b><br>' +
+        (money.M > 500
+          ? '<span style="color:#16a34a;">M↑ → r↓ → 投资↑ → 收入↑</span>（扩张性货币政策）'
+          : money.M < 500
+          ? '<span style="color:#dc2626;">M↓ → r↑ → 投资↓ → 收入↓</span>（紧缩性货币政策）'
+          : '<span style="color:#6b7280;">调整M或Y观察均衡变化</span>');
+    }
+
+    function moneyUpdLabels(){
+      document.getElementById('vMoneyM').textContent = money.M;
+      document.getElementById('vMoneyY').textContent = money.Y;
+    }
+
+    document.getElementById('sMoneyM').addEventListener('input', function(e){ money.M = +e.target.value; moneyUpdLabels(); moneyDraw(); });
+    document.getElementById('sMoneyY').addEventListener('input', function(e){ money.Y = +e.target.value; moneyUpdLabels(); moneyDraw(); });
+
+    document.getElementById('moneyReset').addEventListener('click', function(){
+      money.M=500; money.Y=100;
+      document.getElementById('sMoneyM').value=500; document.getElementById('sMoneyY').value=100;
+      moneyUpdLabels(); moneyDraw();
+    });
+
+    document.getElementById('moneyEase').addEventListener('click', function(){
+      var btn = document.getElementById('moneyEase');
+      btn.disabled = true;
+      var oldM = money.M;
+      money.M = Math.min(800, money.M + 200);
+      document.getElementById('sMoneyM').value = money.M;
+      // ghost line at old position
+      setLine(document.getElementById('msGhost'), MM.X(oldM), MM.Y(0), MM.X(oldM), MM.Y(MM.yDom[1]));
+      document.getElementById('msGhost').setAttribute('opacity', '0.5');
+      moneyUpdLabels(); moneyDraw();
+      document.getElementById('moneyRead').innerHTML = '<span style="color:#16a34a;">扩张性货币政策：</span>央行买入债券 → M从' + oldM + '升至' + money.M + ' → M/P右移 → 均衡利率r↓ → 刺激投资I↑ → 收入Y↑。';
+      setTimeout(function(){ btn.disabled = false; document.getElementById('msGhost').setAttribute('opacity','0'); }, 1500);
+    });
+
+    drawAxes(MM, {gridId:'moneyGrid', tickId:'moneyTicks', xAxisId:'moneyXAxis', yAxisId:'moneyYAxis',
+      xLabelId:'moneyXLabel', yLabelId:'moneyYLabel', xStart:0, xStep:100, yStart:0, yStep:2,
+      xfmt:function(v){return v.toFixed(0);}, yfmt:function(v){return v.toFixed(0);}});
+    moneyUpdLabels();
+    moneyDraw();
+
+    /* ================================================== */
+    /* ============ ⑤ 乘数效应 ============ */
+    /* ================================================== */
+    var MU = { svg: document.getElementById('mulSvg'), xDom:[0,12], yDom:[0,350], m:{l:55,r:30,t:25,b:50} };
+    MU.pw = 600 - MU.m.l - MU.m.r; MU.ph = 440 - MU.m.t - MU.m.b;
+    MU.X = function(x){return MU.m.l + (x - MU.xDom[0])/(MU.xDom[1]-MU.xDom[0]) * MU.pw;};
+    MU.Y = function(y){return MU.m.t + (MU.yDom[1] - y)/(MU.yDom[1]-MU.yDom[0]) * MU.ph;};
+    var mul = {mpc:0.8, dI:100, shownRounds:12, animating:false};
+
+    function mulTotal(){ return mul.dI / (1 - mul.mpc); }
+
+    function mulDraw(){
+      var bars = document.getElementById('mulBars');
+      bars.innerHTML = '';
+      var running = 0;
+      for (var i = 1; i <= mul.shownRounds; i++) {
+        var spend = mul.dI * Math.pow(mul.mpc, i - 1);
+        running += spend;
+        var bx = MU.X(i - 0.4);
+        var bw = MU.X(i + 0.4) - MU.X(i - 0.4);
+        var bh = (spend / MU.yDom[1]) * MU.ph;
+        var by = MU.Y(spend);
+
+        // 本轮支出柱
+        var rect = document.createElementNS(SVGNS, 'rect');
+        rect.setAttribute('x', bx);
+        rect.setAttribute('y', by);
+        rect.setAttribute('width', bw);
+        rect.setAttribute('height', Math.max(0, bh));
+        rect.setAttribute('fill', '#2563eb');
+        rect.setAttribute('opacity', 0.85);
+        rect.setAttribute('rx', 2);
+        bars.appendChild(rect);
+
+        // 累计标记
+        var cy = MU.Y(running);
+        var dot = document.createElementNS(SVGNS, 'circle');
+        dot.setAttribute('cx', MU.X(i));
+        dot.setAttribute('cy', cy);
+        dot.setAttribute('r', 3);
+        dot.setAttribute('fill', '#16a34a');
+        bars.appendChild(dot);
+
+        // 数值标签 (前3轮)
+        if (i <= 3) {
+          var txt = document.createElementNS(SVGNS, 'text');
+          txt.setAttribute('x', MU.X(i));
+          txt.setAttribute('y', by - 6);
+          txt.setAttribute('fill', '#2563eb');
+          txt.setAttribute('font-size', 11);
+          txt.setAttribute('font-weight', 600);
+          txt.setAttribute('text-anchor', 'middle');
+          txt.textContent = spend.toFixed(0);
+          bars.appendChild(txt);
+        }
+      }
+
+      // 累计线
+      var cumPath = '';
+      running = 0;
+      for (var j = 1; j <= mul.shownRounds; j++) {
+        running += mul.dI * Math.pow(mul.mpc, j - 1);
+        if (j === 1) cumPath = 'M' + MU.X(j) + ',' + MU.Y(running);
+        else cumPath += ' L' + MU.X(j) + ',' + MU.Y(running);
+      }
+      var cumLine = document.createElementNS(SVGNS, 'path');
+      cumLine.setAttribute('d', cumPath);
+      cumLine.setAttribute('fill', 'none');
+      cumLine.setAttribute('stroke', '#16a34a');
+      cumLine.setAttribute('stroke-width', 2);
+      bars.appendChild(cumLine);
+
+      // 乘数极限线（shownRounds<1时隐藏，避免标签溢出）
+      var total = mulTotal();
+      var tlVis = mul.shownRounds >= 1 ? 'visible' : 'hidden';
+      document.getElementById('mulTotalLine').style.visibility = tlVis;
+      document.getElementById('mulTotalLabel').style.visibility = tlVis;
+      setLine(document.getElementById('mulTotalLine'), MU.X(1), MU.Y(total), MU.X(Math.max(1, mul.shownRounds)), MU.Y(total));
+      setText(document.getElementById('mulTotalLabel'), MU.X(Math.max(1, shownRounds_label_pos())), MU.Y(total) - 8, 'ΔY极限 = ' + total.toFixed(1));
+
+      document.getElementById('mulFormula').textContent = total.toFixed(0);
+      var curTotal = 0;
+      for (var n = 1; n <= mul.shownRounds; n++) curTotal += mul.dI * Math.pow(mul.mpc, n-1);
+      document.getElementById('mulRead').innerHTML =
+        'MPC = <b>' + mul.mpc.toFixed(2) + '</b>，乘数 k = 1/(1−MPC) = <b>' + (1/(1-mul.mpc)).toFixed(2) + '</b><br>' +
+        'ΔI = <b>' + mul.dI + '</b> → 理论 ΔY = <b>' + total.toFixed(1) + '</b><br>' +
+        '已展示 ' + mul.shownRounds + ' 轮，累计 = <b>' + curTotal.toFixed(1) + '</b>' +
+        (mul.shownRounds < 12 ? '（尚差' + (total - curTotal).toFixed(1) + '）' : '（收敛）');
+    }
+
+    function shownRounds_label_pos(){ return mul.shownRounds - 1; }
+
+    function mulUpdLabels(){
+      document.getElementById('vMulMpc').textContent = mul.mpc.toFixed(2);
+      document.getElementById('vMulDI').textContent = mul.dI;
+    }
+
+    document.getElementById('sMulMpc').addEventListener('input', function(e){ mul.mpc = +e.target.value; mulUpdLabels(); mulDraw(); });
+    document.getElementById('sMulDI').addEventListener('input', function(e){ mul.dI = +e.target.value; mulUpdLabels(); mulDraw(); });
+
+    document.getElementById('mulReset').addEventListener('click', function(){
+      mul.mpc=0.8; mul.dI=100; mul.shownRounds=12;
+      document.getElementById('sMulMpc').value=0.8; document.getElementById('sMulDI').value=100;
+      mulUpdLabels(); mulDraw();
+    });
+
+    document.getElementById('mulAnim').addEventListener('click', function(){
+      if (mul.animating) return;
+      mul.animating = true;
+      var btn = document.getElementById('mulAnim');
+      btn.disabled = true;
+      mul.shownRounds = 0;
+      mulDraw();
+      var round = 0;
+      var timer = setInterval(function(){
+        round++;
+        mul.shownRounds = round;
+        mulDraw();
+        if (round >= 12) {
+          clearInterval(timer);
+          mul.animating = false;
+          btn.disabled = false;
+        }
+      }, 300);
+    });
+
+    // 动态调整Y轴上限
+    function mulAdjustY(){
+      MU.yDom[1] = Math.max(200, mul.dI * 2.5);
+    }
+    // 重写mulDraw调用前调整
+    var origMulDraw = mulDraw;
+    mulDraw = function(){ mulAdjustY(); origMulDraw(); };
+
+    drawAxes(MU, {gridId:'mulGrid', tickId:'mulTicks', xAxisId:'mulXAxis', yAxisId:'mulYAxis',
+      xLabelId:'mulXLabel', yLabelId:'mulYLabel', xStart:0, xStep:2, yStart:0, yStep:50,
+      xfmt:function(v){return v.toFixed(0);}, yfmt:function(v){return v.toFixed(0);}});
+    mulUpdLabels();
+    mulDraw();
+
+    /* ================================================== */
+    /* ============ ⑥ 经济周期 ============ */
+    /* ================================================== */
+    var CY = { svg: document.getElementById('cycSvg'), xDom:[0,12], yDom:[50,200], m:{l:55,r:30,t:25,b:50} };
+    CY.pw = 600 - CY.m.l - CY.m.r; CY.ph = 440 - CY.m.t - CY.m.b;
+    CY.X = function(x){return CY.m.l + (x - CY.xDom[0])/(CY.xDom[1]-CY.xDom[0]) * CY.pw;};
+    CY.Y = function(y){return CY.m.t + (CY.yDom[1] - y)/(CY.yDom[1]-CY.yDom[0]) * CY.ph;};
+    var cyc = {amp:30, growth:3, cursor:3, base:120, animating:false};
+
+    function cycTrendVal(t){ return cyc.base + cyc.growth * t * 2; }
+    function cycActualVal(t){ return cycTrendVal(t) + cyc.amp * Math.sin(t * Math.PI / 3); }
+    function cycPhase(t){
+      var phase = (t % 6);
+      if (phase >= 0 && phase < 1.5) return {name:'繁荣', color:'#dc2626', desc:'实际GDP高于潜在，经济过热，通胀压力增大'};
+      if (phase >= 1.5 && phase < 3) return {name:'衰退', color:'#f59e0b', desc:'经济从峰顶下滑，产出开始下降'};
+      if (phase >= 3 && phase < 4.5) return {name:'萧条', color:'#2563eb', desc:'实际GDP远低于潜在，失业严重'};
+      return {name:'复苏', color:'#16a34a', desc:'经济从谷底回升，产出逐渐恢复'};
+    }
+
+    function cycDraw(){
+      // 趋势线
+      setLine(document.getElementById('cycTrend'), CY.X(0), CY.Y(cycTrendVal(0)), CY.X(CY.xDom[1]), CY.Y(cycTrendVal(CY.xDom[1])));
+      setText(document.getElementById('cycTrendLabel'), CY.X(CY.xDom[1]-1.5), CY.Y(cycTrendVal(CY.xDom[1]-1.5))-8);
+
+      // 波动线
+      var wavePath = '';
+      for (var t = 0; t <= CY.xDom[1]; t += 0.1) {
+        var y = cycActualVal(t);
+        if (t === 0) wavePath = 'M' + CY.X(t) + ',' + CY.Y(y);
+        else wavePath += ' L' + CY.X(t) + ',' + CY.Y(y);
+      }
+      document.getElementById('cycWave').setAttribute('d', wavePath);
+      setText(document.getElementById('cycWaveLabel'), CY.X(0.5), CY.Y(cycActualVal(0.5))-12);
+
+      // 阶段色带 (一个完整周期6个单位, 0-12有两个周期)
+      var allPhases = [
+        {start:0, end:1.5, id:'cycBoomBg'},
+        {start:1.5, end:3, id:'cycRecessBg'},
+        {start:3, end:4.5, id:'cycDepressBg'},
+        {start:4.5, end:6, id:'cycRecoverBg'},
+        {start:6, end:7.5, id:'cycBoomBg2'},
+        {start:7.5, end:9, id:'cycRecessBg2'},
+        {start:9, end:10.5, id:'cycDepressBg2'},
+        {start:10.5, end:12, id:'cycRecoverBg2'}
+      ];
+      for (var i = 0; i < allPhases.length; i++) {
+        var rect = document.getElementById(allPhases[i].id);
+        if (rect) {
+          rect.setAttribute('x', CY.X(allPhases[i].start));
+          rect.setAttribute('y', CY.m.t);
+          rect.setAttribute('width', CY.X(allPhases[i].end) - CY.X(allPhases[i].start));
+          rect.setAttribute('height', CY.ph);
+        }
+      }
+
+      // 光标
+      var ct = Math.max(0, Math.min(CY.xDom[1], cyc.cursor));
+      var cv = cycActualVal(ct);
+      setLine(document.getElementById('cycCursor'), CY.X(ct), CY.m.t, CY.X(ct), CY.m.t + CY.ph);
+      setPos(document.getElementById('cycCursorDot'), CY.X(ct), CY.Y(cv));
+      var ph = cycPhase(ct);
+      setText(document.getElementById('cycCursorLabel'), CY.X(ct)+8, CY.Y(cv)-10, 't='+ct.toFixed(1));
+      setText(document.getElementById('cycPhaseLabel'), CY.m.l + CY.pw/2, CY.m.t + 20, '');
+
+      // 读数
+      var gap = cv - cycTrendVal(ct);
+      var gapPct = (gap / cycTrendVal(ct) * 100);
+      document.getElementById('cycRead').innerHTML =
+        '<b style="color:' + ph.color + ';">当前阶段：' + ph.name + '</b><br>' +
+        ph.desc + '<br>' +
+        '实际GDP = <b>' + cv.toFixed(0) + '</b><br>' +
+        '潜在GDP = <b>' + cycTrendVal(ct).toFixed(0) + '</b><br>' +
+        '产出缺口 = <b>' + (gap >= 0 ? '+' : '') + gap.toFixed(1) + '</b> (' + (gapPct >= 0 ? '+' : '') + gapPct.toFixed(1) + '%)';
+    }
+
+    function cycUpdLabels(){
+      document.getElementById('vCycAmp').textContent = cyc.amp;
+      document.getElementById('vCycGr').textContent = cyc.growth.toFixed(1) + '%';
+    }
+
+    document.getElementById('sCycAmp').addEventListener('input', function(e){ cyc.amp = +e.target.value; cycUpdLabels(); cycDraw(); });
+    document.getElementById('sCycGr').addEventListener('input', function(e){ cyc.growth = +e.target.value; cycUpdLabels(); cycDraw(); });
+    document.getElementById('cycReset').addEventListener('click', function(){
+      cyc.amp=30; cyc.growth=3; cyc.cursor=3;
+      document.getElementById('sCycAmp').value=30; document.getElementById('sCycGr').value=3;
+      cycUpdLabels(); cycDraw();
+    });
+
+    // 拖动光标
+    (function(){
+      var dot = document.getElementById('cycCursorDot');
+      var drag = false;
+      function pt(evt){
+        var r = CY.svg.getBoundingClientRect();
+        var x = (evt.touches ? evt.touches[0].clientX : evt.clientX);
+        var sx = (x - r.left) / r.width * 600;
+        cyc.cursor = CY.xDom[0] + (sx - CY.m.l) / CY.pw * (CY.xDom[1] - CY.xDom[0]);
+        cyc.cursor = Math.max(0, Math.min(CY.xDom[1], cyc.cursor));
+        cycDraw();
+      }
+      dot.addEventListener('mousedown', function(e){ if(cyc.animating) return; drag = true; dot.style.cursor='grabbing'; });
+      CY.svg.addEventListener('mousedown', function(e){ if(cyc.animating) return; drag = true; pt(e); });
+      window.addEventListener('mousemove', function(e){ if(drag) pt(e); });
+      window.addEventListener('mouseup', function(){ drag = false; dot.style.cursor='grab'; });
+      dot.addEventListener('touchstart', function(e){ if(cyc.animating) return; drag = true; e.preventDefault(); }, {passive:false});
+      CY.svg.addEventListener('touchstart', function(e){ if(cyc.animating) return; drag = true; pt(e); e.preventDefault(); }, {passive:false});
+      window.addEventListener('touchmove', function(e){ if(drag){ pt(e); e.preventDefault(); } }, {passive:false});
+      window.addEventListener('touchend', function(){ drag = false; });
+    })();
+
+    document.getElementById('cycAnim').addEventListener('click', function(){
+      if (cyc.animating) return;
+      cyc.animating = true;
+      var btn = document.getElementById('cycAnim');
+      btn.disabled = true;
+      cyc.cursor = 0;
+      var t = 0;
+      var timer = setInterval(function(){
+        t += 0.1;
+        cyc.cursor = t;
+        cycDraw();
+        if (t >= CY.xDom[1]) {
+          clearInterval(timer);
+          cyc.animating = false;
+          btn.disabled = false;
+        }
+      }, 50);
+    });
+
+    drawAxes(CY, {gridId:'cycGrid', tickId:'cycTicks', xAxisId:'cycXAxis', yAxisId:'cycYAxis',
+      xLabelId:'cycXLabel', yLabelId:'cycYLabel', xStart:0, xStep:2, yStart:50, yStep:25,
+      xfmt:function(v){return v.toFixed(0);}, yfmt:function(v){return v.toFixed(0);}});
+    cycUpdLabels();
+    cycDraw();
+
+    /* ========== 暗色模式统一 handler（合并原三处监听） ========== */
+    function redrawAllModelAxes() {
+      // 菲利普斯曲线
+      drawAxes(PH, {gridId:'phGrid', tickId:'phTicks', xAxisId:'phXAxis', yAxisId:'phYAxis',
+        xLabelId:'phXLabel', yLabelId:'phYLabel', xStart:0, xStep:2, yStart:-2, yStep:2,
+        xfmt:function(v){return v.toFixed(0);}, yfmt:function(v){return v.toFixed(0);}});
+      phDraw();
+      // 蒙代尔-弗莱明
+      drawAxes(MF, {gridId:'mfGrid', tickId:'mfTicks', xAxisId:'mfXAxis', yAxisId:'mfYAxis',
+        xLabelId:'mfXLabel', yLabelId:'mfYLabel', xStart:20, xStep:10, yStart:0, yStep:2,
+        xfmt:function(v){return v.toFixed(0);}, yfmt:function(v){return v.toFixed(0);}});
+      mfDraw();
+      // 索洛增长
+      drawAxes(SO, {gridId:'solowGrid', tickId:'solowTicks', xAxisId:'solowXAxis', yAxisId:'solowYAxis',
+        xLabelId:'solowXLabel', yLabelId:'solowYLabel', xStart:0, xStep:20, yStart:0, yStep:10,
+        xfmt:function(v){return v.toFixed(0);}, yfmt:function(v){return v.toFixed(0);}});
+      solowDraw();
+      // 货币市场
+      drawAxes(MM, {gridId:'moneyGrid', tickId:'moneyTicks', xAxisId:'moneyXAxis', yAxisId:'moneyYAxis',
+        xLabelId:'moneyXLabel', yLabelId:'moneyYLabel', xStart:0, xStep:100, yStart:0, yStep:2,
+        xfmt:function(v){return v.toFixed(0);}, yfmt:function(v){return v.toFixed(0);}});
+      moneyDraw();
+      // 乘数效应
+      drawAxes(MU, {gridId:'mulGrid', tickId:'mulTicks', xAxisId:'mulXAxis', yAxisId:'mulYAxis',
+        xLabelId:'mulXLabel', yLabelId:'mulYLabel', xStart:0, xStep:2, yStart:0, yStep:50,
+        xfmt:function(v){return v.toFixed(0);}, yfmt:function(v){return v.toFixed(0);}});
+      mulDraw();
+      // 经济周期
+      drawAxes(CY, {gridId:'cycGrid', tickId:'cycTicks', xAxisId:'cycXAxis', yAxisId:'cycYAxis',
+        xLabelId:'cycXLabel', yLabelId:'cycYLabel', xStart:0, xStep:2, yStart:50, yStep:25,
+        xfmt:function(v){return v.toFixed(0);}, yfmt:function(v){return v.toFixed(0);}});
+      cycDraw();
+    }
+
+    darkModeBtn.addEventListener('click', function() {
+      document.body.classList.toggle('dark');
+      darkModeBtn.textContent = document.body.classList.contains('dark')
+        ? '切换日间模式' : '切换夜间模式';
+      redrawAllModelAxes();
+    });
+  </script>
+</body>
+</html>
